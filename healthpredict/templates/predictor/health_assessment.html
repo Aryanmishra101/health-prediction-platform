@@ -607,10 +607,25 @@
                 'hemoglobin': 'Hemoglobin'
             };
 
-            let fieldsHTML = '<ul class="list-unstyled mb-0">';
+            let fieldsHTML = '<ul class="list-group list-group-flush">';
             Object.keys(data.extracted_data).forEach(key => {
                 if (fieldLabels[key]) {
-                    fieldsHTML += `<li><strong>${fieldLabels[key]}:</strong> ${data.extracted_data[key]}</li>`;
+                    const item = data.extracted_data[key];
+                    // Handle both new rich format and potential legacy format
+                    const value = item.value !== undefined ? item.value : item;
+                    const units = item.units || '';
+                    const rawLine = item.raw_line ? `<br><small class="text-muted">Source: "${item.raw_line}"</small>` : '';
+
+                    fieldsHTML += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${fieldLabels[key]}:</strong> ${value} ${units}
+                                ${rawLine}
+                            </div>
+                            <span class="badge bg-primary rounded-pill">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </li>`;
                 }
             });
             fieldsHTML += '</ul>';
@@ -624,7 +639,11 @@
             Object.keys(extractedData).forEach(fieldName => {
                 const input = document.querySelector(`[name="${fieldName}"]`);
                 if (input) {
-                    input.value = extractedData[fieldName];
+                    const item = extractedData[fieldName];
+                    // Handle both new rich format and potential legacy format
+                    const value = item.value !== undefined ? item.value : item;
+
+                    input.value = value;
                     // Trigger validation
                     input.dispatchEvent(new Event('input', { bubbles: true }));
                 }
@@ -698,6 +717,8 @@
         });
 
         // Form submission
+        // Form submission
+        /*
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -710,6 +731,7 @@
                 }, 2000);
             }
         });
+        */
 
         // Blood pressure validation
         const systolicInput = document.getElementById('{{ form.systolic_bp.id_for_label }}');
@@ -802,6 +824,7 @@
 
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
+                console.log('Validation error on field:', field.name, field.id);
                 showFieldError(field, 'This field is required');
                 isValid = false;
             } else {

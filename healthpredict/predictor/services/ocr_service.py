@@ -126,80 +126,107 @@ class MedicalReportExtractor:
             logger.error(f"Error extracting from image: {e}")
             return "", 0.0
     
+    def get_units(self, field_name: str) -> str:
+        """Get standard units for a field"""
+        units = {
+            'systolic_bp': 'mmHg',
+            'diastolic_bp': 'mmHg',
+            'fasting_glucose': 'mg/dL',
+            'hba1c': '%',
+            'total_cholesterol': 'mg/dL',
+            'hdl_cholesterol': 'mg/dL',
+            'ldl_cholesterol': 'mg/dL',
+            'triglycerides': 'mg/dL',
+            'heart_rate': 'bpm',
+            'temperature': '°C',
+            'creatinine': 'mg/dL',
+            'hemoglobin': 'g/dL',
+        }
+        return units.get(field_name, '')
+
     def parse_medical_data(self, text: str) -> Dict:
         """
-        Parse extracted text to identify medical values
+        Parse extracted text to identify medical values with context
         
         Args:
             text: Extracted text from OCR
             
         Returns:
-            Dictionary of parsed medical values
+            Dictionary of parsed medical values with metadata
         """
         data = {}
+        lines = text.split('\n')
         
-        # Clean text
-        text = text.replace('\n', ' ').replace('\r', ' ')
+        # Helper to process value based on field type
+        def process_value(field, val_str):
+            try:
+                if field in ['hba1c', 'temperature', 'creatinine', 'hemoglobin']:
+                    return float(val_str)
+                return int(val_str)
+            except ValueError:
+                return None
+
+        # Iterate through all patterns
+        for field, pattern in self.PATTERNS.items():
+            # Skip composite patterns like 'blood_pressure' for direct assignment
+            if field == 'blood_pressure':
+                continue
+                
+            for line in lines:
+                # Skip empty lines
+                if not line.strip():
+                    continue
+                    
+                match = re.search(pattern, line, re.IGNORECASE)
+                if match:
+                    val_str = match.group(1)
+                    value = process_value(field, val_str)
+                    
+                    if value is not None:
+                        # Special handling for temperature conversion
+                        if field == 'temperature' and value > 50:
+                            value = round((value - 32) * 5/9, 1)
+                        
+                        # Special handling for HbA1c percentage
+                        if field == 'hba1c' and value > 15:
+                            value = value / 10
+
+                        # Map 'glucose' to 'fasting_glucose'
+                        field_name = 'fasting_glucose' if field == 'glucose' else field
+
+                        data[field_name] = {
+                            "value": value,
+                            "units": self.get_units(field_name),
+                            "confidence": 0.9, # High confidence for regex match
+                            "raw_line": line.strip()
+                        }
+                        break # Stop after first match for this field
         
-        # Extract blood pressure
-        bp_match = re.search(self.PATTERNS['blood_pressure'], text, re.IGNORECASE)
-        if bp_match:
-            data['systolic_bp'] = int(bp_match.group(1))
-            data['diastolic_bp'] = int(bp_match.group(2))
-        else:
-            # Try individual patterns
-            systolic_match = re.search(self.PATTERNS['systolic_bp'], text, re.IGNORECASE)
-            if systolic_match:
-                data['systolic_bp'] = int(systolic_match.group(1))
-            
-            diastolic_match = re.search(self.PATTERNS['diastolic_bp'], text, re.IGNORECASE)
-            if diastolic_match:
-                data['diastolic_bp'] = int(diastolic_match.group(1))
-        
-        # Extract glucose
-        glucose_match = re.search(self.PATTERNS['glucose'], text, re.IGNORECASE)
-        if glucose_match:
-            data['fasting_glucose'] = int(glucose_match.group(1))
-        
-        # Extract HbA1c
-        hba1c_match = re.search(self.PATTERNS['hba1c'], text, re.IGNORECASE)
-        if hba1c_match:
-            value = float(hba1c_match.group(1))
-            # Convert percentage to decimal if needed
-            if value > 15:
-                value = value / 10
-            data['hba1c'] = value
-        
-        # Extract cholesterol values
-        for key in ['total_cholesterol', 'hdl_cholesterol', 'ldl_cholesterol', 'triglycerides']:
-            match = re.search(self.PATTERNS[key], text, re.IGNORECASE)
-            if match:
-                data[key] = int(match.group(1))
-        
-        # Extract heart rate
-        hr_match = re.search(self.PATTERNS['heart_rate'], text, re.IGNORECASE)
-        if hr_match:
-            data['heart_rate'] = int(hr_match.group(1))
-        
-        # Extract temperature
-        temp_match = re.search(self.PATTERNS['temperature'], text, re.IGNORECASE)
-        if temp_match:
-            temp = float(temp_match.group(1))
-            # Convert Fahrenheit to Celsius if needed
-            if temp > 50:
-                temp = (temp - 32) * 5/9
-            data['temperature'] = round(temp, 1)
-        
-        # Extract creatinine
-        creat_match = re.search(self.PATTERNS['creatinine'], text, re.IGNORECASE)
-        if creat_match:
-            data['creatinine'] = float(creat_match.group(1))
-        
-        # Extract hemoglobin
-        hb_match = re.search(self.PATTERNS['hemoglobin'], text, re.IGNORECASE)
-        if hb_match:
-            data['hemoglobin'] = float(hb_match.group(1))
-        
+        # Handle composite Blood Pressure if individual not found
+        if 'systolic_bp' not in data or 'diastolic_bp' not in data:
+            for line in lines:
+                match = re.search(self.PATTERNS['blood_pressure'], line, re.IGNORECASE)
+                if match:
+                    systolic = int(match.group(1))
+                    diastolic = int(match.group(2))
+                    
+                    if 'systolic_bp' not in data:
+                        data['systolic_bp'] = {
+                            "value": systolic,
+                            "units": "mmHg",
+                            "confidence": 0.9,
+                            "raw_line": line.strip()
+                        }
+                    
+                    if 'diastolic_bp' not in data:
+                        data['diastolic_bp'] = {
+                            "value": diastolic,
+                            "units": "mmHg",
+                            "confidence": 0.9,
+                            "raw_line": line.strip()
+                        }
+                    break
+
         logger.info(f"Parsed {len(data)} medical values from text")
         return data
     
@@ -208,10 +235,10 @@ class MedicalReportExtractor:
         Validate extracted medical values are within reasonable ranges
         
         Args:
-            data: Dictionary of extracted values
+            data: Dictionary of extracted values (rich format)
             
         Returns:
-            Dictionary with only valid values
+            Dictionary with only valid values (rich format)
         """
         valid_data = {}
         
@@ -231,13 +258,22 @@ class MedicalReportExtractor:
             'hemoglobin': (8.0, 20.0),
         }
         
-        for key, value in data.items():
+        for key, item in data.items():
+            value = item['value']
             if key in ranges:
                 min_val, max_val = ranges[key]
                 if min_val <= value <= max_val:
-                    valid_data[key] = value
+                    valid_data[key] = item
                 else:
                     logger.warning(f"Value {key}={value} outside valid range [{min_val}, {max_val}]")
+                    # Optionally keep it but lower confidence? 
+                    # For now, strictly filter as per original logic, or maybe keep with low confidence?
+                    # Let's keep it but mark confidence low
+                    item['confidence'] = 0.3
+                    item['notes'] = f"Value outside normal range ({min_val}-{max_val})"
+                    valid_data[key] = item
+            else:
+                valid_data[key] = item
         
         return valid_data
     
@@ -246,15 +282,16 @@ class MedicalReportExtractor:
         Map extracted data to HealthAssessmentForm fields
         
         Args:
-            parsed_data: Dictionary of parsed medical values
+            parsed_data: Dictionary of parsed medical values (rich format)
             
         Returns:
-            Dictionary ready for form population
+            Dictionary ready for form population (rich format preserved)
         """
         # Validate first
         valid_data = self.validate_medical_values(parsed_data)
         
         # Add default values for required fields if missing
+        # Note: We wrap defaults in rich structure too for consistency in frontend
         defaults = {
             'stress_level': 5,
             'sleep_hours': 7.0,
@@ -262,7 +299,12 @@ class MedicalReportExtractor:
         
         for key, value in defaults.items():
             if key not in valid_data:
-                valid_data[key] = value
+                valid_data[key] = {
+                    "value": value,
+                    "units": "",
+                    "confidence": 1.0,
+                    "raw_line": "Default value"
+                }
         
         return valid_data
     
@@ -289,15 +331,22 @@ class MedicalReportExtractor:
         # Parse medical data
         parsed_data = self.parse_medical_data(text)
         
-        # Map to form fields
-        form_data = self.map_to_form_fields(parsed_data)
+        # Map to form fields (validates and adds defaults)
+        final_data = self.map_to_form_fields(parsed_data)
         
-        # Adjust confidence based on how much data we extracted
-        if len(form_data) == 0:
-            confidence = 0.0
-        elif len(form_data) < 3:
-            confidence *= 0.6
-        elif len(form_data) < 6:
-            confidence *= 0.8
-        
-        return form_data, confidence
+        # Calculate overall extraction confidence
+        # Average of individual field confidences weighted by number of fields found
+        if not final_data:
+            overall_confidence = 0.0
+        else:
+            # Base confidence from OCR quality
+            overall_confidence = confidence
+            
+            # Adjust based on fields found vs expected
+            expected_fields = 12 # approx number of key vitals
+            fields_found = len([k for k in final_data.keys() if k not in ['stress_level', 'sleep_hours']])
+            
+            completeness_score = min(fields_found / expected_fields, 1.0)
+            overall_confidence = (overall_confidence * 0.4) + (completeness_score * 0.6)
+            
+        return final_data, round(overall_confidence, 2)

@@ -57,6 +57,10 @@ class HealthAssessmentForm(forms.ModelForm):
                 field.widget.attrs.update({'class': 'form-control'})
             elif isinstance(field, forms.ChoiceField):
                 field.widget.attrs.update({'class': 'form-select'})
+            
+            # Make boolean fields optional (unchecked = False)
+            if isinstance(field, forms.BooleanField):
+                field.required = False
     
     def clean(self):
         """Custom validation for medical consistency"""
