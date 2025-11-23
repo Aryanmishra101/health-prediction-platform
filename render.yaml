@@ -5,8 +5,6 @@ services:
     plan: free
     dockerFilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.13.0
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
@@ -15,8 +13,6 @@ services:
         value: 'false'
       - key: ALLOWED_HOSTS
         value: '*'
-    buildCommand: ""
-    startCommand: "gunicorn --chdir healthpredict healthpredict.wsgi:application --bind 0.0.0.0:10000"
 databases:
   - name: health-db
     plan: free
