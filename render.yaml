@@ -2,8 +2,11 @@ services:
   - type: web
     name: health-prediction-platform
     env: docker
+    region: oregon
     plan: free
-    dockerFilePath: ./Dockerfile
+    branch: main
+    dockerfile: ./Dockerfile
+    dockerContext: .
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -13,8 +16,10 @@ services:
         value: 'false'
       - key: ALLOWED_HOSTS
         value: '*'
+
 databases:
   - name: health-db
+    region: oregon
     plan: free
     databaseName: healthpredict
     user: healthuser
