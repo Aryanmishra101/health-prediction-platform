@@ -24,10 +24,7 @@
                         <i class="fas fa-chart-line me-2"></i>View Dashboard
                     </a>
                     {% else %}
-                    <a href="{% url 'accounts:demo_login' %}" class="btn btn-success btn-lg pulse"
-                        style="animation-delay: 0.2s;">
-                        <i class="fas fa-play-circle me-2"></i>Try Demo
-                    </a>
+
                     <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg">
                         <i class="fas fa-user-plus me-2"></i>Get Started
                     </a>
@@ -237,9 +234,7 @@
                 <i class="fas fa-chart-line me-2"></i>View Dashboard
             </a>
             {% else %}
-            <a href="{% url 'accounts:demo_login' %}" class="btn btn-success btn-lg me-3 pulse">
-                <i class="fas fa-play-circle me-2"></i>Try Demo Now
-            </a>
+
             <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg me-3">
                 <i class="fas fa-user-plus me-2"></i>Get Started Free
             </a>
