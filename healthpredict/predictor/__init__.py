@@ -1,0 +1,1 @@
+# Health Prediction App - Core ML functionality

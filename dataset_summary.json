@@ -1,0 +1,28 @@
+{
+  "total_patients": 10000,
+  "age_range": "18-90",
+  "gender_distribution": {
+    "female": 5185,
+    "male": 4815
+  },
+  "risk_distributions": {
+    "heart_disease": {
+      "low_risk (<30)": 4991,
+      "moderate_risk (30-50)": 4655,
+      "high_risk (50-70)": 354,
+      "very_high_risk (>=70)": 0
+    },
+    "diabetes": {
+      "low_risk (<30)": 4664,
+      "moderate_risk (30-50)": 4103,
+      "high_risk (50-70)": 1097,
+      "very_high_risk (>=70)": 136
+    },
+    "cancer": {
+      "low_risk (<30)": 8121,
+      "moderate_risk (30-50)": 1818,
+      "high_risk (50-70)": 61,
+      "very_high_risk (>=70)": 0
+    }
+  }
+}

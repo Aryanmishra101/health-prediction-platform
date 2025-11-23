@@ -1,0 +1,887 @@
+{% extends 'base.html' %}
+
+{% block title %}Health Assessment - Health Prediction Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-header text-center">
+                    <h2 class="mb-0">
+                        <i class="fas fa-stethoscope me-2"></i>
+                        Health Risk Assessment
+                    </h2>
+                    <p class="text-muted mb-0 mt-2">Complete this comprehensive assessment to receive your personalized
+                        health risk predictions.</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <!-- Patient Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card border-light">
+                                <div class="card-body">
+                                    <h6 class="card-title text-primary">
+                                        <i class="fas fa-user me-2"></i>Patient Information
+                                    </h6>
+                                    <p class="mb-1"><strong>Name:</strong> {{ user.get_full_name|default:user.username
+                                        }}</p>
+                                    <p class="mb-1"><strong>Medical ID:</strong> {{
+                                        patient_profile.medical_id|default:'Not Assigned' }}</p>
+                                    <p class="mb-0"><strong>Age:</strong> {{ patient_profile.age|default:'Not Specified'
+                                        }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-light">
+                                <div class="card-body">
+                                    <h6 class="card-title text-primary">
+                                        <i class="fas fa-info-circle me-2"></i>Assessment Guidelines
+                                    </h6>
+                                    <ul class="small text-muted mb-0">
+                                        <li>Provide accurate information for best results</li>
+                                        <li>Recent lab results (within 3 months) preferred</li>
+                                        <li>All fields are required unless marked optional</li>
+                                        <li>Assessment takes 10-15 minutes to complete</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical Report Upload Section -->
+                    <div class="card mb-4 border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-file-upload me-2"></i>
+                            Quick Fill from Medical Report
+                            <small class="float-end">Optional - Auto-fill form fields</small>
+                        </div>
+                        <div class="card-body">
+                            <!-- Upload Zone -->
+                            <div id="upload-zone" class="upload-dropzone text-center p-4 mb-3"
+                                style="border: 2px dashed #007bff; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+                                <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                                <h5>Drag & drop your medical report here</h5>
+                                <p class="text-muted mb-2">or</p>
+                                <button type="button" class="btn btn-primary" id="browse-btn">
+                                    <i class="fas fa-folder-open me-2"></i>Browse Files
+                                </button>
+                                <input type="file" id="report-file" hidden accept=".pdf,.jpg,.jpeg,.png">
+                                <p class="text-muted small mt-3 mb-0">
+                                    Supported formats: PDF, JPG, PNG (Max 10MB)
+                                </p>
+                            </div>
+
+                            <!-- Progress Indicator -->
+                            <div id="upload-progress" class="d-none mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <strong class="me-2">Processing report...</strong>
+                                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        role="progressbar" style="width: 100%">
+                                        Extracting medical data...
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Extracted Data Preview -->
+                            <div id="extracted-data-preview" class="d-none">
+                                <div class="alert alert-success">
+                                    <h6 class="alert-heading">
+                                        <i class="fas fa-check-circle me-2"></i>Data Extracted Successfully!
+                                    </h6>
+                                    <p class="mb-2">Review the extracted values below and click "Apply to Form" to
+                                        auto-fill:</p>
+                                    <div id="extracted-fields" class="small"></div>
+                                    <div class="mt-3">
+                                        <span class="badge bg-info me-2">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Confidence: <span id="confidence-score"></span>%
+                                        </span>
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-database me-1"></i>
+                                            Fields: <span id="fields-count"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <button type="button" class="btn btn-success btn-sm" id="apply-data-btn">
+                                            <i class="fas fa-check me-2"></i>Apply to Form
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            id="cancel-upload-btn">
+                                            <i class="fas fa-times me-2"></i>Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Privacy & Security Notice -->
+                            <div class="alert alert-info mb-0">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                <strong>Privacy & Security:</strong> Your medical report is processed securely on our
+                                servers.
+                                The file is automatically deleted after processing. No data is shared with third
+                                parties.
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="post" id="healthAssessmentForm" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Vital Signs Section -->
+                        <div class="mb-4">
+                            <h4 class="text-primary mb-3">
+                                <i class="fas fa-heartbeat me-2"></i>Vital Signs
+                            </h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.systolic_bp.id_for_label }}" class="form-label">
+                                        Systolic Blood Pressure <span class="text-danger">*</span>
+                                        <small class="text-muted">(mmHg)</small>
+                                    </label>
+                                    {{ form.systolic_bp }}
+                                    <div class="form-text">Normal: 90-120 mmHg</div>
+                                    {% if form.systolic_bp.errors %}
+                                    <div class="text-danger small">{{ form.systolic_bp.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.diastolic_bp.id_for_label }}" class="form-label">
+                                        Diastolic Blood Pressure <span class="text-danger">*</span>
+                                        <small class="text-muted">(mmHg)</small>
+                                    </label>
+                                    {{ form.diastolic_bp }}
+                                    <div class="form-text">Normal: 60-80 mmHg</div>
+                                    {% if form.diastolic_bp.errors %}
+                                    <div class="text-danger small">{{ form.diastolic_bp.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.heart_rate.id_for_label }}" class="form-label">
+                                        Heart Rate <span class="text-danger">*</span>
+                                        <small class="text-muted">(bpm)</small>
+                                    </label>
+                                    {{ form.heart_rate }}
+                                    <div class="form-text">Normal: 60-100 bpm</div>
+                                    {% if form.heart_rate.errors %}
+                                    <div class="text-danger small">{{ form.heart_rate.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.temperature.id_for_label }}" class="form-label">
+                                        Body Temperature <span class="text-danger">*</span>
+                                        <small class="text-muted">(°C)</small>
+                                    </label>
+                                    {{ form.temperature }}
+                                    <div class="form-text">Normal: 36.1-37.2°C</div>
+                                    {% if form.temperature.errors %}
+                                    <div class="text-danger small">{{ form.temperature.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Laboratory Results Section -->
+                        <div class="mb-4">
+                            <h4 class="text-primary mb-3">
+                                <i class="fas fa-flask me-2"></i>Laboratory Results
+                            </h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.fasting_glucose.id_for_label }}" class="form-label">
+                                        Fasting Glucose <span class="text-danger">*</span>
+                                        <small class="text-muted">(mg/dL)</small>
+                                    </label>
+                                    {{ form.fasting_glucose }}
+                                    <div class="form-text">Normal: 70-99 mg/dL</div>
+                                    {% if form.fasting_glucose.errors %}
+                                    <div class="text-danger small">{{ form.fasting_glucose.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.hba1c.id_for_label }}" class="form-label">
+                                        HbA1c <span class="text-danger">*</span>
+                                        <small class="text-muted">(%)</small>
+                                    </label>
+                                    {{ form.hba1c }}
+                                    <div class="form-text">Normal: <5.7%, Prediabetes: 5.7-6.4%</div>
+                                            {% if form.hba1c.errors %}
+                                            <div class="text-danger small">{{ form.hba1c.errors.0 }}</div>
+                                            {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.total_cholesterol.id_for_label }}" class="form-label">
+                                            Total Cholesterol <span class="text-danger">*</span>
+                                            <small class="text-muted">(mg/dL)</small>
+                                        </label>
+                                        {{ form.total_cholesterol }}
+                                        <div class="form-text">Desirable: <200 mg/dL</div>
+                                                {% if form.total_cholesterol.errors %}
+                                                <div class="text-danger small">{{ form.total_cholesterol.errors.0 }}
+                                                </div>
+                                                {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{{ form.hdl_cholesterol.id_for_label }}" class="form-label">
+                                                HDL Cholesterol <span class="text-danger">*</span>
+                                                <small class="text-muted">(mg/dL)</small>
+                                            </label>
+                                            {{ form.hdl_cholesterol }}
+                                            <div class="form-text">Higher is better: >40 mg/dL (men), >50 mg/dL (women)
+                                            </div>
+                                            {% if form.hdl_cholesterol.errors %}
+                                            <div class="text-danger small">{{ form.hdl_cholesterol.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{{ form.ldl_cholesterol.id_for_label }}" class="form-label">
+                                                LDL Cholesterol <span class="text-danger">*</span>
+                                                <small class="text-muted">(mg/dL)</small>
+                                            </label>
+                                            {{ form.ldl_cholesterol }}
+                                            <div class="form-text">Optimal: <100 mg/dL</div>
+                                                    {% if form.ldl_cholesterol.errors %}
+                                                    <div class="text-danger small">{{ form.ldl_cholesterol.errors.0 }}
+                                                    </div>
+                                                    {% endif %}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="{{ form.triglycerides.id_for_label }}" class="form-label">
+                                                    Triglycerides <span class="text-danger">*</span>
+                                                    <small class="text-muted">(mg/dL)</small>
+                                                </label>
+                                                {{ form.triglycerides }}
+                                                <div class="form-text">Normal: <150 mg/dL</div>
+                                                        {% if form.triglycerides.errors %}
+                                                        <div class="text-danger small">{{ form.triglycerides.errors.0 }}
+                                                        </div>
+                                                        {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="{{ form.creatinine.id_for_label }}" class="form-label">
+                                                        Creatinine <span class="text-danger">*</span>
+                                                        <small class="text-muted">(mg/dL)</small>
+                                                    </label>
+                                                    {{ form.creatinine }}
+                                                    <div class="form-text">Normal: 0.6-1.2 mg/dL</div>
+                                                    {% if form.creatinine.errors %}
+                                                    <div class="text-danger small">{{ form.creatinine.errors.0 }}</div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="{{ form.hemoglobin.id_for_label }}" class="form-label">
+                                                        Hemoglobin <span class="text-danger">*</span>
+                                                        <small class="text-muted">(g/dL)</small>
+                                                    </label>
+                                                    {{ form.hemoglobin }}
+                                                    <div class="form-text">Normal: 12-16 g/dL (women), 14-18 g/dL (men)
+                                                    </div>
+                                                    {% if form.hemoglobin.errors %}
+                                                    <div class="text-danger small">{{ form.hemoglobin.errors.0 }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Symptoms Section -->
+                                        <div class="mb-4">
+                                            <h4 class="text-primary mb-3">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>Current Symptoms
+                                            </h4>
+                                            <p class="text-muted mb-3">Check all symptoms you are currently
+                                                experiencing:</p>
+
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.chest_pain }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.chest_pain.id_for_label }}">
+                                                            Chest Pain or Discomfort
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.shortness_of_breath }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.shortness_of_breath.id_for_label }}">
+                                                            Shortness of Breath
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.fatigue }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.fatigue.id_for_label }}">
+                                                            Unusual Fatigue
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.frequent_urination }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.frequent_urination.id_for_label }}">
+                                                            Frequent Urination
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.excessive_thirst }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.excessive_thirst.id_for_label }}">
+                                                            Excessive Thirst
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.unexplained_weight_loss }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.unexplained_weight_loss.id_for_label }}">
+                                                            Unexplained Weight Loss
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.blurred_vision }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.blurred_vision.id_for_label }}">
+                                                            Blurred Vision
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.dizziness }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.dizziness.id_for_label }}">
+                                                            Dizziness or Lightheadedness
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        {{ form.palpitations }}
+                                                        <label class="form-check-label"
+                                                            for="{{ form.palpitations.id_for_label }}">
+                                                            Heart Palpitations
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Lifestyle Factors -->
+                                        <div class="mb-4">
+                                            <h4 class="text-primary mb-3">
+                                                <i class="fas fa-user-md me-2"></i>Lifestyle & Wellness
+                                            </h4>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="{{ form.stress_level.id_for_label }}"
+                                                        class="form-label">
+                                                        Stress Level <span class="text-danger">*</span>
+                                                        <small class="text-muted">(1-10 scale)</small>
+                                                    </label>
+                                                    {{ form.stress_level }}
+                                                    <div class="form-text">1 = Very low stress, 10 = Extremely high
+                                                        stress</div>
+                                                    {% if form.stress_level.errors %}
+                                                    <div class="text-danger small">{{ form.stress_level.errors.0 }}
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="{{ form.sleep_hours.id_for_label }}" class="form-label">
+                                                        Average Sleep Duration <span class="text-danger">*</span>
+                                                        <small class="text-muted">(hours per night)</small>
+                                                    </label>
+                                                    {{ form.sleep_hours }}
+                                                    <div class="form-text">Recommended: 7-9 hours for adults</div>
+                                                    {% if form.sleep_hours.errors %}
+                                                    <div class="text-danger small">{{ form.sleep_hours.errors.0 }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Additional Notes -->
+                                        <div class="mb-4">
+                                            <h4 class="text-primary mb-3">
+                                                <i class="fas fa-sticky-note me-2"></i>Additional Information
+                                            </h4>
+                                            {{ form.notes }}
+                                            <div class="form-text">Any additional symptoms, concerns, or relevant
+                                                medical information.</div>
+                                        </div>
+
+                                        <!-- Form Actions -->
+                                        <div class="d-flex justify-content-between pt-4 border-top">
+                                            <button type="button" class="btn btn-secondary"
+                                                onclick="window.history.back();">
+                                                <i class="fas fa-arrow-left me-2"></i>Back
+                                            </button>
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    onclick="saveDraft();">
+                                                    <i class="fas fa-save me-2"></i>Save Draft
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" id="submitBtn">
+                                                    <i class="fas fa-chart-line me-2"></i>Generate Predictions
+                                                </button>
+                                            </div>
+                                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Form validation and enhancement
+    document.addEventListener('DOMContentLoaded', function () {
+        // Medical Report Upload Functionality
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('report-file');
+        const browseBtn = document.getElementById('browse-btn');
+        const uploadProgress = document.getElementById('upload-progress');
+        const extractedDataPreview = document.getElementById('extracted-data-preview');
+        const applyDataBtn = document.getElementById('apply-data-btn');
+        const cancelUploadBtn = document.getElementById('cancel-upload-btn');
+
+        let extractedData = {};
+        let currentReportId = null;
+
+        // Browse button click
+        browseBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        // Drag and drop
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.style.backgroundColor = '#e7f3ff';
+            uploadZone.style.borderColor = '#0056b3';
+        });
+
+        uploadZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadZone.style.backgroundColor = '';
+            uploadZone.style.borderColor = '#007bff';
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.style.backgroundColor = '';
+            uploadZone.style.borderColor = '#007bff';
+
+            if (e.dataTransfer.files.length > 0) {
+                handleFileUpload(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Handle file upload
+        function handleFileUpload(file) {
+            // Validate file type
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showError('Invalid file type. Please upload PDF, JPG, or PNG files.');
+                return;
+            }
+
+            // Validate file size (10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showError('File too large. Maximum size is 10MB.');
+                return;
+            }
+
+            // Show progress
+            uploadZone.classList.add('d-none');
+            uploadProgress.classList.remove('d-none');
+            extractedDataPreview.classList.add('d-none');
+
+            // Upload file
+            const formData = new FormData();
+            formData.append('report_file', file);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+            fetch('{% url "predictor:upload_report" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentReportId = data.report_id;
+                        // Process the report
+                        processReport(data.report_id);
+                    } else {
+                        showError(data.error || 'Upload failed');
+                        resetUploadUI();
+                    }
+                })
+                .catch(error => {
+                    console.error('Upload error:', error);
+                    showError('Upload failed. Please try again.');
+                    resetUploadUI();
+                });
+        }
+
+        // Process uploaded report
+        function processReport(reportId) {
+            fetch(`/predictor/process-report/${reportId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    uploadProgress.classList.add('d-none');
+
+                    if (data.success) {
+                        extractedData = data.extracted_data;
+                        displayExtractedData(data);
+                    } else {
+                        showError(data.error || 'Processing failed');
+                        resetUploadUI();
+                    }
+                })
+                .catch(error => {
+                    console.error('Processing error:', error);
+                    showError('Processing failed. Please try again.');
+                    resetUploadUI();
+                });
+        }
+
+        // Display extracted data
+        function displayExtractedData(data) {
+            const fieldsDiv = document.getElementById('extracted-fields');
+            const confidenceSpan = document.getElementById('confidence-score');
+            const fieldsCountSpan = document.getElementById('fields-count');
+
+            // Display confidence
+            const confidence = Math.round(data.confidence * 100);
+            confidenceSpan.textContent = confidence;
+            fieldsCountSpan.textContent = data.fields_extracted;
+
+            // Display extracted fields
+            const fieldLabels = {
+                'systolic_bp': 'Systolic BP',
+                'diastolic_bp': 'Diastolic BP',
+                'heart_rate': 'Heart Rate',
+                'temperature': 'Temperature',
+                'fasting_glucose': 'Fasting Glucose',
+                'hba1c': 'HbA1c',
+                'total_cholesterol': 'Total Cholesterol',
+                'hdl_cholesterol': 'HDL Cholesterol',
+                'ldl_cholesterol': 'LDL Cholesterol',
+                'triglycerides': 'Triglycerides',
+                'creatinine': 'Creatinine',
+                'hemoglobin': 'Hemoglobin'
+            };
+
+            let fieldsHTML = '<ul class="list-unstyled mb-0">';
+            Object.keys(data.extracted_data).forEach(key => {
+                if (fieldLabels[key]) {
+                    fieldsHTML += `<li><strong>${fieldLabels[key]}:</strong> ${data.extracted_data[key]}</li>`;
+                }
+            });
+            fieldsHTML += '</ul>';
+
+            fieldsDiv.innerHTML = fieldsHTML;
+            extractedDataPreview.classList.remove('d-none');
+        }
+
+        // Apply extracted data to form
+        applyDataBtn.addEventListener('click', () => {
+            Object.keys(extractedData).forEach(fieldName => {
+                const input = document.querySelector(`[name="${fieldName}"]`);
+                if (input) {
+                    input.value = extractedData[fieldName];
+                    // Trigger validation
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+
+            // Show success message
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show';
+            alert.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                Form auto-filled with extracted data. Please review and adjust as needed.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            const form = document.getElementById('healthAssessmentForm');
+            form.insertBefore(alert, form.firstChild);
+
+            // Scroll to form
+            form.scrollIntoView({ behavior: 'smooth' });
+
+            // Reset upload UI
+            setTimeout(() => {
+                resetUploadUI();
+            }, 1000);
+        });
+
+        // Cancel upload
+        cancelUploadBtn.addEventListener('click', () => {
+            resetUploadUI();
+        });
+
+        // Reset upload UI
+        function resetUploadUI() {
+            uploadZone.classList.remove('d-none');
+            uploadProgress.classList.add('d-none');
+            extractedDataPreview.classList.add('d-none');
+            fileInput.value = '';
+            extractedData = {};
+            currentReportId = null;
+        }
+
+        // Show error message
+        function showError(message) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger alert-dismissible fade show';
+            alert.innerHTML = `
+                <i class="fas fa-exclamation-circle me-2"></i>${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            uploadZone.parentElement.insertBefore(alert, uploadZone);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        const form = document.getElementById('healthAssessmentForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Real-time validation
+        const inputs = form.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                validateField(this);
+            });
+
+            input.addEventListener('blur', function () {
+                validateField(this);
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (validateForm()) {
+                showLoading(submitBtn);
+
+                // Simulate processing time
+                setTimeout(() => {
+                    form.submit();
+                }, 2000);
+            }
+        });
+
+        // Blood pressure validation
+        const systolicInput = document.getElementById('{{ form.systolic_bp.id_for_label }}');
+        const diastolicInput = document.getElementById('{{ form.diastolic_bp.id_for_label }}');
+
+        function validateBloodPressure() {
+            const systolic = parseInt(systolicInput.value);
+            const diastolic = parseInt(diastolicInput.value);
+
+            if (systolic && diastolic) {
+                if (systolic <= diastolic) {
+                    showFieldError(systolicInput, 'Systolic pressure must be higher than diastolic');
+                    return false;
+                } else {
+                    clearFieldError(systolicInput);
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        if (systolicInput && diastolicInput) {
+            systolicInput.addEventListener('blur', validateBloodPressure);
+            diastolicInput.addEventListener('blur', validateBloodPressure);
+        }
+
+        // BMI calculation
+        const heightInput = document.querySelector('input[name="height"]');
+        const weightInput = document.querySelector('input[name="weight"]');
+
+        if (heightInput && weightInput) {
+            [heightInput, weightInput].forEach(input => {
+                input.addEventListener('input', calculateBMI);
+            });
+        }
+
+        function calculateBMI() {
+            const height = parseFloat(heightInput.value);
+            const weight = parseFloat(weightInput.value);
+
+            if (height && weight) {
+                const bmi = weight / Math.pow(height / 100, 2);
+                const bmiCategory = getBMICategory(bmi);
+
+                // Show BMI info
+                showBMIInfo(bmi, bmiCategory);
+            }
+        }
+
+        function getBMICategory(bmi) {
+            if (bmi < 18.5) return { category: 'Underweight', color: 'info' };
+            if (bmi < 25) return { category: 'Normal weight', color: 'success' };
+            if (bmi < 30) return { category: 'Overweight', color: 'warning' };
+            return { category: 'Obese', color: 'danger' };
+        }
+
+        function showBMIInfo(bmi, bmiCategory) {
+            // Remove existing BMI info
+            const existingInfo = document.querySelector('.bmi-info');
+            if (existingInfo) existingInfo.remove();
+
+            // Add BMI info
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'bmi-info alert alert-' + bmiCategory.color + ' mt-2';
+            infoDiv.innerHTML = `
+                <strong>BMI: ${bmi.toFixed(1)}</strong> - ${bmiCategory.category}
+            `;
+
+            weightInput.parentElement.appendChild(infoDiv);
+        }
+    });
+
+    function validateField(field) {
+        const value = parseFloat(field.value);
+        const min = parseFloat(field.min);
+        const max = parseFloat(field.max);
+
+        if (field.value && (value < min || value > max)) {
+            showFieldError(field, `Value must be between ${min} and ${max}`);
+            return false;
+        } else {
+            clearFieldError(field);
+            return true;
+        }
+    }
+
+    function validateForm() {
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                showFieldError(field, 'This field is required');
+                isValid = false;
+            } else {
+                clearFieldError(field);
+            }
+        });
+
+        return isValid;
+    }
+
+    function showFieldError(field, message) {
+        clearFieldError(field);
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'text-danger small mt-1';
+        errorDiv.textContent = message;
+
+        field.parentElement.appendChild(errorDiv);
+        field.classList.add('is-invalid');
+    }
+
+    function clearFieldError(field) {
+        const existingError = field.parentElement.querySelector('.text-danger');
+        if (existingError) existingError.remove();
+        field.classList.remove('is-invalid');
+    }
+
+    function saveDraft() {
+        // Save form data to localStorage
+        const formData = new FormData(form);
+        const data = {};
+
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+
+        localStorage.setItem('healthAssessmentDraft', JSON.stringify(data));
+
+        // Show success message
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-success alert-dismissible fade show';
+        alert.innerHTML = `
+            <i class="fas fa-check-circle me-2"></i>Draft saved successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+        form.insertBefore(alert, form.firstChild);
+
+        setTimeout(() => {
+            alert.remove();
+        }, 3000);
+    }
+
+    // Load draft on page load
+    window.addEventListener('load', function () {
+        const draft = localStorage.getItem('healthAssessmentDraft');
+        if (draft) {
+            const data = JSON.parse(draft);
+
+            Object.keys(data).forEach(key => {
+                const field = form.querySelector(`[name="${key}"]`);
+                if (field) {
+                    if (field.type === 'checkbox') {
+                        field.checked = data[key] === 'on';
+                    } else {
+                        field.value = data[key];
+                    }
+                }
+            });
+
+            // Show draft loaded message
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-info alert-dismissible fade show';
+            alert.innerHTML = `
+                <i class="fas fa-info-circle me-2"></i>Draft loaded. Complete your assessment.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            form.insertBefore(alert, form.firstChild);
+        }
+    });
+</script>
+{% endblock %}
