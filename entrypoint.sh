@@ -1,11 +1,15 @@
 #!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status
-set -e
+# set -e  <-- Disabled to debug 502 error
+
+echo "Starting entrypoint script..."
+ls -la
+ls -la healthpredict/
 
 # Run database migrations
 echo "Applying database migrations..."
-python healthpredict/manage.py migrate
+python healthpredict/manage.py migrate || echo "WARNING: Migration failed"
 
 # Collect static files (already done in build, but good safety)
 # python healthpredict/manage.py collectstatic --noinput
