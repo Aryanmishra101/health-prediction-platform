@@ -20,9 +20,15 @@ SECRET_KEY = os.environ.get('SECRET_KEY', config('SECRET_KEY', default='django-i
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,0.0.0.0', cast=lambda v: [s.strip() for s in v.split(',')])
+# For PythonAnywhere, add: yourusername.pythonanywhere.com
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://*.railway.app', 'https://*.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com', 
+    'https://*.railway.app', 
+    'https://*.up.railway.app',
+    'https://*.pythonanywhere.com'
+]
 
 # Application definition
 INSTALLED_APPS = [
