@@ -34,9 +34,15 @@ COPY . /app/
 # We set a dummy secret key for build step if needed, but usually handled by env vars
 RUN python healthpredict/manage.py collectstatic --noinput
 
+# Copy entrypoint script
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port
 EXPOSE 8000
 
+# Set entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
+
 # Run gunicorn
-# Adjust the path to wsgi application based on your project structure
 CMD ["gunicorn", "--chdir", "healthpredict", "healthpredict.wsgi:application", "--bind", "0.0.0.0:8000"]

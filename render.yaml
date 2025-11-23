@@ -14,6 +14,12 @@ services:
         value: 'false'
       - key: ALLOWED_HOSTS
         value: '*'
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: 'admin'
+      - key: DJANGO_SUPERUSER_PASSWORD
+        value: 'admin123'
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: 'admin@healthpredict.com'
 
 databases:
   - name: health-db
