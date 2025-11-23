@@ -5,8 +5,6 @@ services:
     region: oregon
     plan: free
     branch: main
-    dockerfile: ./Dockerfile
-    dockerContext: .
     envVars:
       - key: SECRET_KEY
         generateValue: true
