@@ -45,4 +45,5 @@ EXPOSE 8000
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Run gunicorn
-CMD ["gunicorn", "--chdir", "healthpredict", "healthpredict.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Use shell form to expand PORT variable
+CMD sh -c "gunicorn --chdir healthpredict healthpredict.wsgi:application --bind 0.0.0.0:${PORT:-8000}"
