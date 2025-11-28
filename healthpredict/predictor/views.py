@@ -108,7 +108,7 @@ def health_assessment_view(request):
                     # Generate predictions
                     assessment_data = form.cleaned_data.copy()
                     assessment_data.update({
-                        'age': patient_profile.age or 30,
+                        'age': form.cleaned_data.get('age') or patient_profile.age or 30,
                         'gender': patient_profile.gender,
                         'bmi': patient_profile.bmi or 25.0,
                         'smoking_status': patient_profile.smoking_status,
@@ -152,7 +152,9 @@ def health_assessment_view(request):
             messages.error(request, 'Please correct the errors in the form.')
     else:
         # Pre-populate form with patient data
-        initial_data = {}
+        initial_data = {
+            'age': patient_profile.age
+        }
         if patient_profile.bmi:
             initial_data['weight'] = patient_profile.weight
             initial_data['height'] = patient_profile.height

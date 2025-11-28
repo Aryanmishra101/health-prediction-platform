@@ -55,9 +55,20 @@ class PatientProfile(models.Model):
     family_medical_history = models.CharField(max_length=20, choices=FAMILY_HISTORY_CHOICES, default='none')
     
     # Medical information
+    BLOOD_TYPE_CHOICES = [
+        ('O+', 'O Positive (O+)'),
+        ('O-', 'O Negative (O-)'),
+        ('A+', 'A Positive (A+)'),
+        ('A-', 'A Negative (A-)'),
+        ('B+', 'B Positive (B+)'),
+        ('B-', 'B Negative (B-)'),
+        ('AB+', 'AB Positive (AB+)'),
+        ('AB-', 'AB Negative (AB-)'),
+    ]
+
     height = models.FloatField(null=True, blank=True, validators=[MinValueValidator(100), MaxValueValidator(250)])
     weight = models.FloatField(null=True, blank=True, validators=[MinValueValidator(30), MaxValueValidator(300)])
-    blood_type = models.CharField(max_length=5, blank=True)
+    blood_type = models.CharField(max_length=5, choices=BLOOD_TYPE_CHOICES, blank=True)
     allergies = models.TextField(blank=True)
     current_medications = models.TextField(blank=True)
     

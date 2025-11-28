@@ -20,12 +20,14 @@ class TestPatientProfile:
             user=user,
             date_of_birth='1990-01-01',
             gender='male',
+            blood_type='O+',
             height=175.0,
             weight=75.0
         )
         
         assert profile.user == user
         assert profile.gender == 'male'
+        assert profile.blood_type == 'O+'
     
     def test_patient_profile_bmi_calculation(self, user):
         """Test BMI calculation"""

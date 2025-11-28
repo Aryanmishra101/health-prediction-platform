@@ -29,6 +29,7 @@ class PatientProfileFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     date_of_birth = factory.Faker('date_of_birth', minimum_age=18, maximum_age=90)
     gender = factory.Iterator(['male', 'female', 'other'])
+    blood_type = factory.Iterator(['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'])
     height = factory.Faker('pyfloat', min_value=150, max_value=200)
     weight = factory.Faker('pyfloat', min_value=50, max_value=120)
     smoking_status = factory.Iterator(['never', 'former', 'current'])

@@ -10,6 +10,11 @@ from .models import HealthAssessment, PatientProfile
 class HealthAssessmentForm(forms.ModelForm):
     """Health assessment form with medical-grade validation"""
     
+    age = forms.IntegerField(
+        validators=[MinValueValidator(18), MaxValueValidator(120)],
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Age'})
+    )
+
     class Meta:
         model = HealthAssessment
         fields = [
@@ -134,19 +139,6 @@ class PatientProfileForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
-        # Add blood type choices
-        self.fields['blood_type'].choices = [
-            ('', 'Select blood type'),
-            ('O+', 'O Positive (O+)'),
-            ('O-', 'O Negative (O-)'),
-            ('A+', 'A Positive (A+)'),
-            ('A-', 'A Negative (A-)'),
-            ('B+', 'B Positive (B+)'),
-            ('B-', 'B Negative (B-)'),
-            ('AB+', 'AB Positive (AB+)'),
-            ('AB-', 'AB Negative (AB-)'),
-        ]
     
     def clean(self):
         """Custom validation for patient profile"""
