@@ -194,14 +194,42 @@ class HealthPredictor:
             'smoking_status': {'never': 0, 'former': 1, 'current': 2},
             'alcohol_consumption': {'never': 0, 'occasional': 1, 'moderate': 2, 'heavy': 3},
             'exercise_level': {'sedentary': 0, 'light': 1, 'moderate': 2, 'vigorous': 3},
-            'family_medical_history': {'none': 0, 'heart_disease': 1, 'diabetes': 2, 'cancer': 3, 'multiple': 4}
         }
         
         for feature in self.categorical_features:
-            value = assessment_data.get(feature, 'none')
-            mapping = categorical_mappings.get(feature, {})
-            encoded_value = mapping.get(value, 0)
-            features.append(encoded_value)
+            if feature == 'family_medical_history':
+                # Handle dict-type family medical history
+                value = assessment_data.get(feature, {})
+                if isinstance(value, dict):
+                    # Count number of conditions in family history
+                    # 0 = none, 1-2 = single condition, 3+ = multiple
+                    num_conditions = sum(1 for v in value.values() if v)
+                    if num_conditions == 0:
+                        encoded_value = 0  # none
+                    elif num_conditions == 1:
+                        # Single condition - map to specific value
+                        if value.get('heart_disease'):
+                            encoded_value = 1
+                        elif value.get('diabetes'):
+                            encoded_value = 2
+                        elif value.get('cancer'):
+                            encoded_value = 3
+                        else:
+                            encoded_value = 1  # default to heart disease
+                    else:
+                        encoded_value = 4  # multiple conditions
+                elif isinstance(value, str):
+                    # Handle string values for backward compatibility
+                    mapping = {'none': 0, 'heart_disease': 1, 'diabetes': 2, 'cancer': 3, 'multiple': 4}
+                    encoded_value = mapping.get(value, 0)
+                else:
+                    encoded_value = 0
+                features.append(encoded_value)
+            else:
+                value = assessment_data.get(feature, 'none')
+                mapping = categorical_mappings.get(feature, {})
+                encoded_value = mapping.get(value, 0)
+                features.append(encoded_value)
         
         # Binary features
         for feature in self.binary_features:
@@ -447,8 +475,16 @@ class HealthPredictor:
             'diabetes_risk': 25.0,
             'cancer_risk': 25.0,
             'stroke_risk': 25.0,
+            'heart_disease_category': 'moderate',
+            'diabetes_category': 'moderate',
+            'cancer_category': 'moderate',
+            'stroke_category': 'moderate',
             'prediction_confidence': 0.5,
             'prediction_method': 'error-fallback',
+            'model_version': 'error-fallback',
+            'prediction_time_ms': 0,
+            'recommendations': [],
+            'feature_importance': {},
             'error': True
         }
 
