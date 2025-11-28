@@ -1,6 +1,20 @@
 """
-Machine Learning Models for Health Prediction
-Medical-grade PyTorch models for disease risk prediction
+Machine Learning Models for Health Risk Prediction
+
+This module provides the core ML functionality for predicting health risks including:
+- Heart Disease Risk
+- Diabetes Risk
+- Cancer Risk
+- Stroke Risk
+
+The HealthPredictor class handles model loading, feature engineering, and prediction
+generation with comprehensive error handling and logging.
+
+Example:
+    >>> from predictor.ml_models import health_predictor
+    >>> data = {'systolic_bp': 120, 'diastolic_bp': 80, ...}
+    >>> results = health_predictor.predict_health_risks(data)
+    >>> print(results['heart_disease_risk'])
 """
 
 import torch
@@ -15,6 +29,8 @@ import logging
 from typing import Dict, List, Tuple, Optional
 import json
 from pathlib import Path
+from datetime import datetime
+# from django.conf import settings # Commented out as it's not used in the provided code and might cause import errors if not a Django project
 
 logger = logging.getLogger(__name__)
 

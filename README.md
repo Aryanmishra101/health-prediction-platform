@@ -34,9 +34,13 @@ An advanced AI-powered health risk assessment platform that uses machine learnin
 - **Font Awesome**: Icons and graphics
 - **Custom CSS**: Medical-themed design system
 
-### DevOps
+### DevOps & Quality Assurance
 - **Docker**: Containerization
-- **GitHub Actions**: CI/CD pipeline
+- **GitHub Actions**: CI/CD pipeline with automated testing
+- **pytest**: Comprehensive test suite with 70%+ coverage
+- **Sentry**: Real-time error tracking and monitoring
+- **drf-spectacular**: Interactive API documentation
+- **Django Debug Toolbar**: Development performance profiling
 - **Heroku/Railway**: Cloud deployment
 - **WhiteNoise**: Static file serving
 
@@ -50,13 +54,21 @@ healthpredict/
 │   ├── views.py           # Views and controllers
 │   ├── forms.py           # Forms and validation
 │   ├── ml_models.py       # ML model integration
+│   ├── throttles.py       # API rate limiting
 │   └── urls.py            # URL patterns
 ├── accounts/               # User management app
 ├── dashboard/              # Analytics and reporting
+├── tests/                  # Comprehensive test suite
+│   ├── conftest.py        # Test fixtures
+│   ├── factories.py       # Test data factories
+│   ├── test_models.py     # Model tests
+│   ├── test_api.py        # API endpoint tests
+│   └── test_ml_models.py  # ML model tests
 ├── templates/              # HTML templates
 ├── static/                 # CSS, JS, images
 ├── ml_models/              # Trained ML models
 ├── requirements.txt        # Python dependencies
+├── pytest.ini              # Test configuration
 ├── run_server.py          # Development server
 └── .env                   # Environment variables
 ```

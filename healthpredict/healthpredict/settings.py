@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'corsheaders',
     'django_extensions',
+    'rest_framework',
+    'drf_spectacular',
+    'debug_toolbar',
     
     # Local apps
     'predictor',
@@ -67,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'healthpredict.urls'
@@ -270,3 +274,63 @@ LOGGING = {
 
 # Create logs directory if it doesn't exist
 os.makedirs(BASE_DIR / 'logs', exist_ok=True)
+
+# Django REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',  # Anonymous users: 100 requests per hour
+        'user': '1000/hour',  # Authenticated users: 1000 requests per hour
+        'prediction': '100/hour',  # ML predictions: 100 per hour
+    },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+}
+
+# API Documentation with drf-spectacular
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Health Prediction Platform API',
+    'DESCRIPTION': 'AI-powered health risk assessment API for predicting heart disease, diabetes, cancer, and stroke risks',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'CONTACT': {
+        'name': 'Health Prediction Platform',
+        'email': 'support@healthpredict.com',
+    },
+    'LICENSE': {
+        'name': 'MIT License',
+    },
+    'COMPONENT_SPLIT_REQUEST': True,
+}
+
+# Sentry Error Tracking
+SENTRY_DSN = config('SENTRY_DSN', default=None)
+if SENTRY_DSN and not DEBUG:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=0.1,  # 10% of transactions for performance monitoring
+        send_default_pii=False,  # Don't send personally identifiable information
+        environment='production' if not DEBUG else 'development',
+    )
+
+# Django Debug Toolbar
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost',
+]
+
+# Debug Toolbar Configuration
+if DEBUG:
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+    }

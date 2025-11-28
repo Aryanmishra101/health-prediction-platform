@@ -255,13 +255,32 @@ Please consult with healthcare professionals for medical advice.
     return response
 
 # API Views
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework import status
+from .throttles import PredictionRateThrottle, AnonPredictionRateThrottle
 
 @api_view(['POST'])
+@throttle_classes([PredictionRateThrottle, AnonPredictionRateThrottle])
 def api_predict_view(request):
-    """API endpoint for health predictions"""
+    """
+    API endpoint for health risk predictions
+    
+    Rate Limits:
+    - Authenticated users: 100 requests/hour
+    - Anonymous users: 20 requests/hour
+    
+    Required fields:
+    - systolic_bp: Systolic blood pressure (mmHg)
+    - diastolic_bp: Diastolic blood pressure (mmHg)
+    - fasting_glucose: Fasting glucose level (mg/dL)
+    - total_cholesterol: Total cholesterol (mg/dL)
+    
+    Returns:
+    - success: Boolean indicating success
+    - prediction: Risk scores for heart disease, diabetes, cancer, stroke
+    - timestamp: ISO format timestamp
+    """
     try:
         data = request.data
         
@@ -284,9 +303,12 @@ def api_predict_view(request):
         })
         
     except Exception as e:
-        logger.error(f"API prediction error: {e}")
+        logger.error(f"API prediction error: {e}", exc_info=True)
         return Response(
-            {'error': 'Prediction failed'},
+            {
+                'error': 'Prediction failed',
+                'message': 'An error occurred while processing your health data. Please try again or contact support if the issue persists.'
+            },
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
