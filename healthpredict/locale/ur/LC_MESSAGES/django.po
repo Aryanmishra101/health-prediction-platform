@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-24 23:17+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: healthpredict/settings.py:143
+msgid "English"
+msgstr ""
+
+#: healthpredict/settings.py:144
+msgid "Hindi"
+msgstr ""
+
+#: healthpredict/settings.py:145
+msgid "Japanese"
+msgstr ""
+
+#: healthpredict/settings.py:146
+msgid "Simplified Chinese"
+msgstr ""
+
+#: healthpredict/settings.py:147
+msgid "Urdu"
+msgstr ""
+
+#: templates/base.html:9
+msgid "Health Prediction Platform"
+msgstr "صحت کی پیشن گوئی کا پلیٹ فارم"
+
+#: templates/base.html:342 templates/base.html:491
+msgid "Home"
+msgstr "گھر"
+
+#: templates/base.html:346 templates/base.html:492
+msgid "About"
+msgstr "کے بارے میں"
+
+#: templates/base.html:350 templates/base.html:493
+msgid "Services"
+msgstr "خدمات"
+
+#: templates/base.html:356 templates/base.html:495
+msgid "Assessment"
+msgstr "تشخیص"
+
+#: templates/base.html:433
+msgid "Dashboard"
+msgstr "ڈیش بورڈ"
+
+#: templates/base.html:436
+msgid "Profile"
+msgstr "پروفائل"
+
+#: templates/base.html:439
+msgid "Assessment History"
+msgstr "تشخیص کی تاریخ"
+
+#: templates/base.html:445
+msgid "Logout"
+msgstr "لاگ آؤٹ"
+
+#: templates/base.html:451
+msgid "Login"
+msgstr "لاگ ان کریں"
+
+#: templates/base.html:454
+msgid "Register"
+msgstr "رجسٹر کریں"
+
+#: templates/base.html:486
+msgid "All rights reserved."
+msgstr "جملہ حقوق محفوظ ہیں۔"
+
+#: templates/base.html:489
+msgid "Quick Links"
+msgstr "فوری روابط"
+
+#: templates/base.html:500
+msgid "Support"
+msgstr "سپورٹ"
+
+#: templates/base.html:502
+msgid "Help Center"
+msgstr "مدد کا مرکز"
+
+#: templates/base.html:503
+msgid "Privacy Policy"
+msgstr "رازداری کی پالیسی"
+
+#: templates/base.html:504
+msgid "Terms of Service"
+msgstr "سروس کی شرائط"
+
+#: templates/base.html:505
+msgid "Contact Us"
+msgstr "ہم سے رابطہ کریں"
+
+#: templates/predictor/home.html:11
+msgid "Predictive Healthcare"
+msgstr "پیشن گوئی صحت کی دیکھ بھال"
+
+#: templates/predictor/home.html:12
+msgid "Powered by AI"
+msgstr "AI کے ذریعہ تقویت یافتہ"
+
+#: templates/predictor/home.html:22
+msgid "Start Assessment"
+msgstr "تشخیص شروع کریں"
+
+#: templates/predictor/home.html:25 templates/predictor/home.html:236
+msgid "View Dashboard"
+msgstr "ڈیش بورڈ دیکھیں"
+
+#: templates/predictor/home.html:30
+msgid "Get Started"
+msgstr "شروع کریں"
+
+#: templates/predictor/home.html:33 templates/predictor/home.html:244
+msgid "Learn More"
+msgstr "مزید جانیں"
+
+#: templates/predictor/home.html:40
+msgid "Medical Technology"
+msgstr ""
+
+#: templates/predictor/home.html:52
+msgid "Advanced Health Prediction"
+msgstr "اعلی درجے کی صحت کی پیشن گوئی"
+
+#: templates/predictor/home.html:53
+msgid "Comprehensive risk assessment using cutting-edge machine learning"
+msgstr ""
+"اعلی درجے کی مشین لرننگ ماڈل آپ کے صحت کے اعداد و شمار کا تجزیہ کرتے ہیں۔"
+
+#: templates/predictor/home.html:64
+msgid "Heart Disease"
+msgstr "دل کی بیماری"
+
+#: templates/predictor/home.html:68
+msgid "Blood pressure analysis"
+msgstr ""
+
+#: templates/predictor/home.html:69
+msgid "Cholesterol profiling"
+msgstr ""
+
+#: templates/predictor/home.html:70
+msgid "Lifestyle assessment"
+msgstr ""
+
+#: templates/predictor/home.html:82
+msgid "Diabetes Risk"
+msgstr "ذیابیطس کا خطرہ"
+
+#: templates/predictor/home.html:86
+msgid "Glucose monitoring"
+msgstr ""
+
+#: templates/predictor/home.html:87
+msgid "HbA1c analysis"
+msgstr ""
+
+#: templates/predictor/home.html:88
+msgid "Insulin resistance"
+msgstr ""
+
+#: templates/predictor/home.html:100
+msgid "Cancer Screening"
+msgstr "کینسر کی اسکریننگ"
+
+#: templates/predictor/home.html:104
+msgid "Genetic markers"
+msgstr ""
+
+#: templates/predictor/home.html:105
+msgid "Environmental factors"
+msgstr ""
+
+#: templates/predictor/home.html:106
+msgid "Family history"
+msgstr ""
+
+#: templates/predictor/home.html:118
+msgid "Stroke Prevention"
+msgstr "فالج کی روک تھام"
+
+#: templates/predictor/home.html:122
+msgid "Neurological markers"
+msgstr ""
+
+#: templates/predictor/home.html:123
+msgid "Blood flow analysis"
+msgstr ""
+
+#: templates/predictor/home.html:124
+msgid "Risk stratification"
+msgstr ""
+
+#: templates/predictor/home.html:137
+msgid "Platform Statistics"
+msgstr "پلیٹ فارم کے اعدادوشمار"
+
+#: templates/predictor/home.html:138
+msgid "Trusted by healthcare professionals and patients worldwide"
+msgstr ""
+
+#: templates/predictor/home.html:146
+msgid "Health Assessments"
+msgstr "صحت کے جائزے"
+
+#: templates/predictor/home.html:154
+msgid "Prediction Accuracy"
+msgstr "پیشن گوئی کی درستگی"
+
+#: templates/predictor/home.html:162
+msgid "Active Users"
+msgstr "فعال صارفین"
+
+#: templates/predictor/home.html:170
+msgid "Support Available"
+msgstr "سپورٹ دستیاب ہے"
+
+#: templates/predictor/home.html:182
+msgid "How It Works"
+msgstr "یہ کیسے کام کرتا ہے"
+
+#: templates/predictor/home.html:183
+msgid "Simple steps to get your health risk assessment"
+msgstr ""
+
+#: templates/predictor/home.html:191
+msgid "Create Profile"
+msgstr "پروفائل بنائیں"
+
+#: templates/predictor/home.html:202
+msgid "Health Assessment"
+msgstr "صحت کا جائزہ"
+
+#: templates/predictor/home.html:213
+msgid "Get Results"
+msgstr "نتائج حاصل کریں"
+
+#: templates/predictor/home.html:227
+msgid "Ready to Assess Your Health?"
+msgstr "کیا آپ اپنی صحت کا اندازہ لگانے کے لیے تیار ہیں؟"
+
+#: templates/predictor/home.html:233
+msgid "Start Health Assessment"
+msgstr "صحت کا جائزہ شروع کریں"
+
+#: templates/predictor/home.html:241
+msgid "Get Started Free"
+msgstr "مفت شروع کریں"

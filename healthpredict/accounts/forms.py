@@ -41,7 +41,7 @@ class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(
         max_length=150,
         required=True,
-        validators=[RegexValidator(r'^[@a-z_.+-]+$', 'Enter a valid username.')],
+        validators=[RegexValidator(r'^[\w.@+-]+$', 'Enter a valid username.')],
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Username'

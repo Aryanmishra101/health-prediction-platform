@@ -25,7 +25,9 @@ urlpatterns = [
     path('', include('predictor.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('api/', include('predictor.api_urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
     
     # Health check endpoint
     path('health/', TemplateView.as_view(template_name='health_check.html'), name='health_check'),

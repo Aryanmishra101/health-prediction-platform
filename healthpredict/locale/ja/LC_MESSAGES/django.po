@@ -1,0 +1,267 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-24 23:17+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: healthpredict/settings.py:143
+msgid "English"
+msgstr ""
+
+#: healthpredict/settings.py:144
+msgid "Hindi"
+msgstr ""
+
+#: healthpredict/settings.py:145
+msgid "Japanese"
+msgstr ""
+
+#: healthpredict/settings.py:146
+msgid "Simplified Chinese"
+msgstr ""
+
+#: healthpredict/settings.py:147
+msgid "Urdu"
+msgstr ""
+
+#: templates/base.html:9
+msgid "Health Prediction Platform"
+msgstr "健康予測プラットフォーム"
+
+#: templates/base.html:342 templates/base.html:491
+msgid "Home"
+msgstr "ホーム"
+
+#: templates/base.html:346 templates/base.html:492
+msgid "About"
+msgstr "約"
+
+#: templates/base.html:350 templates/base.html:493
+msgid "Services"
+msgstr "サービス"
+
+#: templates/base.html:356 templates/base.html:495
+msgid "Assessment"
+msgstr "評価"
+
+#: templates/base.html:433
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: templates/base.html:436
+msgid "Profile"
+msgstr "プロフィール"
+
+#: templates/base.html:439
+msgid "Assessment History"
+msgstr "評価履歴"
+
+#: templates/base.html:445
+msgid "Logout"
+msgstr "ログアウト"
+
+#: templates/base.html:451
+msgid "Login"
+msgstr "ログイン"
+
+#: templates/base.html:454
+msgid "Register"
+msgstr "登録"
+
+#: templates/base.html:486
+msgid "All rights reserved."
+msgstr "全著作権所有。"
+
+#: templates/base.html:489
+msgid "Quick Links"
+msgstr "クイックリンク"
+
+#: templates/base.html:500
+msgid "Support"
+msgstr "サポート"
+
+#: templates/base.html:502
+msgid "Help Center"
+msgstr "ヘルプセンター"
+
+#: templates/base.html:503
+msgid "Privacy Policy"
+msgstr "プライバシーポリシー"
+
+#: templates/base.html:504
+msgid "Terms of Service"
+msgstr "利用規約"
+
+#: templates/base.html:505
+msgid "Contact Us"
+msgstr "お問い合わせ"
+
+#: templates/predictor/home.html:11
+msgid "Predictive Healthcare"
+msgstr "予測医療"
+
+#: templates/predictor/home.html:12
+msgid "Powered by AI"
+msgstr "AI搭載"
+
+#: templates/predictor/home.html:22
+msgid "Start Assessment"
+msgstr "評価を開始"
+
+#: templates/predictor/home.html:25 templates/predictor/home.html:236
+msgid "View Dashboard"
+msgstr "ダッシュボードを表示"
+
+#: templates/predictor/home.html:30
+msgid "Get Started"
+msgstr "始める"
+
+#: templates/predictor/home.html:33 templates/predictor/home.html:244
+msgid "Learn More"
+msgstr "もっと詳しく"
+
+#: templates/predictor/home.html:40
+msgid "Medical Technology"
+msgstr ""
+
+#: templates/predictor/home.html:52
+msgid "Advanced Health Prediction"
+msgstr "高度な健康予測"
+
+#: templates/predictor/home.html:53
+msgid "Comprehensive risk assessment using cutting-edge machine learning"
+msgstr "高度な機械学習モデルがあなたの健康データを分析します。"
+
+#: templates/predictor/home.html:64
+msgid "Heart Disease"
+msgstr "心臓病"
+
+#: templates/predictor/home.html:68
+msgid "Blood pressure analysis"
+msgstr ""
+
+#: templates/predictor/home.html:69
+msgid "Cholesterol profiling"
+msgstr ""
+
+#: templates/predictor/home.html:70
+msgid "Lifestyle assessment"
+msgstr ""
+
+#: templates/predictor/home.html:82
+msgid "Diabetes Risk"
+msgstr "糖尿病リスク"
+
+#: templates/predictor/home.html:86
+msgid "Glucose monitoring"
+msgstr ""
+
+#: templates/predictor/home.html:87
+msgid "HbA1c analysis"
+msgstr ""
+
+#: templates/predictor/home.html:88
+msgid "Insulin resistance"
+msgstr ""
+
+#: templates/predictor/home.html:100
+msgid "Cancer Screening"
+msgstr "がん検診"
+
+#: templates/predictor/home.html:104
+msgid "Genetic markers"
+msgstr ""
+
+#: templates/predictor/home.html:105
+msgid "Environmental factors"
+msgstr ""
+
+#: templates/predictor/home.html:106
+msgid "Family history"
+msgstr ""
+
+#: templates/predictor/home.html:118
+msgid "Stroke Prevention"
+msgstr "脳卒中予防"
+
+#: templates/predictor/home.html:122
+msgid "Neurological markers"
+msgstr ""
+
+#: templates/predictor/home.html:123
+msgid "Blood flow analysis"
+msgstr ""
+
+#: templates/predictor/home.html:124
+msgid "Risk stratification"
+msgstr ""
+
+#: templates/predictor/home.html:137
+msgid "Platform Statistics"
+msgstr "プラットフォーム統計"
+
+#: templates/predictor/home.html:138
+msgid "Trusted by healthcare professionals and patients worldwide"
+msgstr ""
+
+#: templates/predictor/home.html:146
+msgid "Health Assessments"
+msgstr "健康評価"
+
+#: templates/predictor/home.html:154
+msgid "Prediction Accuracy"
+msgstr "予測精度"
+
+#: templates/predictor/home.html:162
+msgid "Active Users"
+msgstr "アクティブユーザー"
+
+#: templates/predictor/home.html:170
+msgid "Support Available"
+msgstr "サポート利用可能"
+
+#: templates/predictor/home.html:182
+msgid "How It Works"
+msgstr "仕組み"
+
+#: templates/predictor/home.html:183
+msgid "Simple steps to get your health risk assessment"
+msgstr ""
+
+#: templates/predictor/home.html:191
+msgid "Create Profile"
+msgstr "プロフィール作成"
+
+#: templates/predictor/home.html:202
+msgid "Health Assessment"
+msgstr "健康評価"
+
+#: templates/predictor/home.html:213
+msgid "Get Results"
+msgstr "結果を取得"
+
+#: templates/predictor/home.html:227
+msgid "Ready to Assess Your Health?"
+msgstr "健康状態を評価する準備はできましたか？"
+
+#: templates/predictor/home.html:233
+msgid "Start Health Assessment"
+msgstr "健康評価を開始"
+
+#: templates/predictor/home.html:241
+msgid "Get Started Free"
+msgstr "無料で始める"

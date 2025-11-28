@@ -91,7 +91,7 @@ class HealthPredictor:
     """Main class for health prediction using trained models"""
     
     def __init__(self, model_path: str = None):
-        self.model_path = Path(model_path) if model_path else Path(__file__).parent / 'ml_models'
+        self.model_path = Path(model_path) if model_path else Path(__file__).parent.parent / 'ml_models'
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         
         self.model = None

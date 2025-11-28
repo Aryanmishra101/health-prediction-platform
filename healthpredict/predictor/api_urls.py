@@ -10,4 +10,5 @@ app_name = 'predictor_api'
 urlpatterns = [
     path('predict/', views.api_predict_view, name='api_predict'),
     path('health/', views.api_health_check, name='api_health'),
+    path('stats/', views.get_live_stats, name='api_stats'),
 ]

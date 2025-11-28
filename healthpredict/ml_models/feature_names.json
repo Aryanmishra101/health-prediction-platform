@@ -1,4 +1,1 @@
-{
-  "version": "1.0.0",
-  "features": []
-}
+["age", "bmi", "systolic_bp", "diastolic_bp", "heart_rate", "temperature", "total_cholesterol", "hdl_cholesterol", "ldl_cholesterol", "triglycerides", "fasting_glucose", "hba1c", "creatinine", "hemoglobin", "stress_level", "sleep_hours", "gender", "smoking_status", "alcohol_consumption", "exercise_level", "family_medical_history", "chest_pain", "shortness_of_breath", "fatigue", "frequent_urination", "excessive_thirst", "unexplained_weight_loss", "blurred_vision", "dizziness", "palpitations"]
