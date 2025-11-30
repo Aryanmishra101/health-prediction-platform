@@ -26,15 +26,27 @@ except ImportError:
     nn = None
     F = None
 
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    np = None
+
 try:
     import pandas as pd
 except ImportError:
     pd = None
 
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-import joblib
+try:
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.model_selection import train_test_split
+except ImportError:
+    StandardScaler = None
+    train_test_split = None
+
+try:
+    import joblib
+except ImportError:
+    joblib = None
 import logging
 from typing import Dict, List, Tuple, Optional
 import json
@@ -171,9 +183,11 @@ class HealthPredictor:
             
             # Load scaler
             scaler_file = self.model_path / 'feature_scaler.pkl'
-            if scaler_file.exists():
+            if joblib and scaler_file.exists():
                 self.scaler = joblib.load(scaler_file)
                 logger.info("Loaded feature scaler")
+            else:
+                logger.warning("Scaler not available, predictions will use unscaled features")
             
             # Load feature names
             features_file = self.model_path / 'feature_names.json'
@@ -189,6 +203,10 @@ class HealthPredictor:
     
     def prepare_features(self, assessment_data: Dict) -> np.ndarray:
         """Prepare features for model prediction"""
+        if not np:
+            # Return None if numpy not available
+            return None
+            
         features = []
         
         # Numeric features
