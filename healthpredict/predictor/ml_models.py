@@ -17,11 +17,21 @@ Example:
     >>> print(results['heart_disease_risk'])
 """
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
+try:
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as F
+except ImportError:
+    torch = None
+    nn = None
+    F = None
+
 import numpy as np
-import pandas as pd
+try:
+    import pandas as pd
+except ImportError:
+    pd = None
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import joblib
@@ -30,85 +40,88 @@ from typing import Dict, List, Tuple, Optional
 import json
 from pathlib import Path
 from datetime import datetime
-# from django.conf import settings # Commented out as it's not used in the provided code and might cause import errors if not a Django project
 
 logger = logging.getLogger(__name__)
 
-class HealthRiskNN(nn.Module):
-    """Neural Network for Health Risk Prediction"""
-    
-    def __init__(self, input_size: int, hidden_sizes: List[int] = [128, 64, 32], dropout_rate: float = 0.3):
-        super(HealthRiskNN, self).__init__()
+if torch:
+    class HealthRiskNN(nn.Module):
+        """Neural Network for Health Risk Prediction"""
         
-        self.input_size = input_size
-        self.hidden_sizes = hidden_sizes
-        self.dropout_rate = dropout_rate
+        def __init__(self, input_size: int, hidden_sizes: List[int] = [128, 64, 32], dropout_rate: float = 0.3):
+            super(HealthRiskNN, self).__init__()
+            
+            self.input_size = input_size
+            self.hidden_sizes = hidden_sizes
+            self.dropout_rate = dropout_rate
+            
+            # Input layer
+            self.input_layer = nn.Linear(input_size, hidden_sizes[0])
+            self.input_bn = nn.BatchNorm1d(hidden_sizes[0])
+            self.input_dropout = nn.Dropout(dropout_rate)
+            
+            # Hidden layers
+            self.hidden_layers = nn.ModuleList()
+            self.batch_norms = nn.ModuleList()
+            self.dropouts = nn.ModuleList()
+            
+            for i in range(len(hidden_sizes) - 1):
+                self.hidden_layers.append(nn.Linear(hidden_sizes[i], hidden_sizes[i + 1]))
+                self.batch_norms.append(nn.BatchNorm1d(hidden_sizes[i + 1]))
+                self.dropouts.append(nn.Dropout(dropout_rate))
+            
+            # Output layers for different conditions
+            self.heart_disease_output = nn.Linear(hidden_sizes[-1], 1)
+            self.diabetes_output = nn.Linear(hidden_sizes[-1], 1)
+            self.cancer_output = nn.Linear(hidden_sizes[-1], 1)
+            self.stroke_output = nn.Linear(hidden_sizes[-1], 1)
+            
+            # Initialize weights
+            self._initialize_weights()
         
-        # Input layer
-        self.input_layer = nn.Linear(input_size, hidden_sizes[0])
-        self.input_bn = nn.BatchNorm1d(hidden_sizes[0])
-        self.input_dropout = nn.Dropout(dropout_rate)
+        def _initialize_weights(self):
+            """Initialize network weights"""
+            for m in self.modules():
+                if isinstance(m, nn.Linear):
+                    nn.init.xavier_uniform_(m.weight)
+                    nn.init.constant_(m.bias, 0)
         
-        # Hidden layers
-        self.hidden_layers = nn.ModuleList()
-        self.batch_norms = nn.ModuleList()
-        self.dropouts = nn.ModuleList()
-        
-        for i in range(len(hidden_sizes) - 1):
-            self.hidden_layers.append(nn.Linear(hidden_sizes[i], hidden_sizes[i + 1]))
-            self.batch_norms.append(nn.BatchNorm1d(hidden_sizes[i + 1]))
-            self.dropouts.append(nn.Dropout(dropout_rate))
-        
-        # Output layers for different conditions
-        self.heart_disease_output = nn.Linear(hidden_sizes[-1], 1)
-        self.diabetes_output = nn.Linear(hidden_sizes[-1], 1)
-        self.cancer_output = nn.Linear(hidden_sizes[-1], 1)
-        self.stroke_output = nn.Linear(hidden_sizes[-1], 1)
-        
-        # Initialize weights
-        self._initialize_weights()
-    
-    def _initialize_weights(self):
-        """Initialize network weights"""
-        for m in self.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_uniform_(m.weight)
-                nn.init.constant_(m.bias, 0)
-    
-    def forward(self, x):
-        """Forward pass through the network"""
-        # Input layer
-        x = self.input_layer(x)
-        x = self.input_bn(x)
-        x = F.relu(x)
-        x = self.input_dropout(x)
-        
-        # Hidden layers
-        for layer, bn, dropout in zip(self.hidden_layers, self.batch_norms, self.dropouts):
-            x = layer(x)
-            x = bn(x)
+        def forward(self, x):
+            """Forward pass through the network"""
+            # Input layer
+            x = self.input_layer(x)
+            x = self.input_bn(x)
             x = F.relu(x)
-            x = dropout(x)
-        
-        # Output layers
-        heart_disease = torch.sigmoid(self.heart_disease_output(x))
-        diabetes = torch.sigmoid(self.diabetes_output(x))
-        cancer = torch.sigmoid(self.cancer_output(x))
-        stroke = torch.sigmoid(self.stroke_output(x))
-        
-        return {
-            'heart_disease': heart_disease,
-            'diabetes': diabetes,
-            'cancer': cancer,
-            'stroke': stroke
-        }
+            x = self.input_dropout(x)
+            
+            # Hidden layers
+            for layer, bn, dropout in zip(self.hidden_layers, self.batch_norms, self.dropouts):
+                x = layer(x)
+                x = bn(x)
+                x = F.relu(x)
+                x = dropout(x)
+            
+            # Output layers
+            heart_disease = torch.sigmoid(self.heart_disease_output(x))
+            diabetes = torch.sigmoid(self.diabetes_output(x))
+            cancer = torch.sigmoid(self.cancer_output(x))
+            stroke = torch.sigmoid(self.stroke_output(x))
+            
+            return {
+                'heart_disease': heart_disease,
+                'diabetes': diabetes,
+                'cancer': cancer,
+                'stroke': stroke
+            }
+else:
+    class HealthRiskNN:
+        pass
 
 class HealthPredictor:
     """Main class for health prediction using trained models"""
     
     def __init__(self, model_path: str = None):
         self.model_path = Path(model_path) if model_path else Path(__file__).parent.parent / 'ml_models'
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') if torch else None
         
         self.model = None
         self.scaler = None
@@ -140,7 +153,7 @@ class HealthPredictor:
         try:
             # Load the main model
             model_file = self.model_path / 'health_risk_model.pth'
-            if model_file.exists():
+            if torch and model_file.exists():
                 checkpoint = torch.load(model_file, map_location=self.device)
                 self.model = HealthRiskNN(
                     input_size=checkpoint['input_size'],
@@ -240,8 +253,8 @@ class HealthPredictor:
     
     def predict_health_risks(self, assessment_data: Dict) -> Dict:
         """Predict health risks using the trained model"""
-        start_time = torch.cuda.Event(enable_timing=True) if torch.cuda.is_available() else None
-        end_time = torch.cuda.Event(enable_timing=True) if torch.cuda.is_available() else None
+        start_time = torch.cuda.Event(enable_timing=True) if torch and torch.cuda.is_available() else None
+        end_time = torch.cuda.Event(enable_timing=True) if torch and torch.cuda.is_available() else None
         
         if start_time:
             start_time.record()
@@ -255,7 +268,10 @@ class HealthPredictor:
                 features = self.scaler.transform(features)
             
             # Convert to tensor
-            features_tensor = torch.FloatTensor(features).to(self.device)
+            if torch:
+                features_tensor = torch.FloatTensor(features).to(self.device)
+            else:
+                features_tensor = None
             
             # Make predictions
             if self.model:
@@ -277,7 +293,8 @@ class HealthPredictor:
             # Calculate prediction time
             if start_time:
                 end_time.record()
-                torch.cuda.synchronize()
+                if torch:
+                    torch.cuda.synchronize()
                 prediction_time_ms = start_time.elapsed_time(end_time)
             else:
                 import time
