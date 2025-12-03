@@ -27,7 +27,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com', 
     'https://*.railway.app', 
     'https://*.up.railway.app',
-    'https://*.pythonanywhere.com'
+    'https://*.pythonanywhere.com',
+    'https://*.vercel.app'
 ]
 
 # Application definition
@@ -246,12 +247,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'healthpredict.log',
-            'formatter': 'verbose',
-        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
@@ -260,12 +255,12 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['file', 'console'],
+            'handlers': ['console'],  # File logging removed for Vercel
             'level': 'INFO',
             'propagate': True,
         },
         'predictor': {
-            'handlers': ['file', 'console'],
+            'handlers': ['console'],  # File logging removed for Vercel
             'level': 'INFO',
             'propagate': True,
         },

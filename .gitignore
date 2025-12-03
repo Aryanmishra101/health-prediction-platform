@@ -132,3 +132,4 @@ node_modules/
 # Local development files
 local.py
 dev.py
+.vercel
