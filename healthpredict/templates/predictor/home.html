@@ -12,7 +12,9 @@
                     <span class="text-warning">Powered by AI</span>
                 </h1>
                 <p class="lead mb-4">
-                    {% trans "Advanced machine learning models analyze your health data to predict risks for heart disease, diabetes, cancer, and stroke. Get personalized insights and recommendations for better health outcomes." %}
+                    {% trans "Advanced machine learning models analyze your health data to predict risks for heart
+                    disease, diabetes, cancer, and stroke. Get personalized insights and recommendations for better
+                    health outcomes." %}
                 </p>
                 <div class="d-flex gap-3 flex-wrap">
                     {% if user.is_authenticated %}
@@ -35,7 +37,7 @@
             </div>
             <div class="col-lg-6 fade-in">
                 <div class="text-center">
-                    <img src="{{ MEDIA_URL }}hero-medical.png" alt="{% trans 'Medical Technology' %}"
+                    <img src="{% static 'hero-medical.png' %}" alt="Medical Technology"
                         class="img-fluid rounded-4 shadow-lg">
                 </div>
             </div>
@@ -60,7 +62,8 @@
                             <i class="fas fa-heart"></i>
                         </div>
                         <h5 class="card-title">{% trans "Heart Disease" %}</h5>
-                        <p class="card-text">{% trans "Advanced cardiovascular risk assessment using multiple biomarkers and lifestyle factors." %}</p>
+                        <p class="card-text">{% trans "Advanced cardiovascular risk assessment using multiple biomarkers
+                            and lifestyle factors." %}</p>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Blood pressure analysis" %}</li>
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Cholesterol profiling" %}</li>
@@ -77,7 +80,8 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <h5 class="card-title">{% trans "Diabetes Risk" %}</h5>
-                        <p class="card-text">{% trans "Early detection of diabetes risk through glucose analysis and metabolic indicators." %}</p>
+                        <p class="card-text">{% trans "Early detection of diabetes risk through glucose analysis and
+                            metabolic indicators." %}</p>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Glucose monitoring" %}</li>
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "HbA1c analysis" %}</li>
@@ -94,7 +98,8 @@
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <h5 class="card-title">{% trans "Cancer Screening" %}</h5>
-                        <p class="card-text">{% trans "Comprehensive cancer risk evaluation based on genetic and lifestyle factors." %}</p>
+                        <p class="card-text">{% trans "Comprehensive cancer risk evaluation based on genetic and
+                            lifestyle factors." %}</p>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Genetic markers" %}</li>
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Environmental factors" %}</li>
@@ -111,7 +116,8 @@
                             <i class="fas fa-brain"></i>
                         </div>
                         <h5 class="card-title">{% trans "Stroke Prevention" %}</h5>
-                        <p class="card-text">{% trans "Neurological risk assessment for stroke prevention and early intervention." %}</p>
+                        <p class="card-text">{% trans "Neurological risk assessment for stroke prevention and early
+                            intervention." %}</p>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Neurological markers" %}</li>
                             <li><i class="fas fa-check text-success me-2"></i>{% trans "Blood flow analysis" %}</li>
@@ -216,7 +222,8 @@
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">1</div>
                         <h5 class="card-title">{% trans "Create Profile" %}</h5>
-                        <p class="card-text">{% trans "Set up your personal health profile with basic information and medical history." %}</p>
+                        <p class="card-text">{% trans "Set up your personal health profile with basic information and
+                            medical history." %}</p>
                     </div>
                 </div>
             </div>
@@ -226,7 +233,8 @@
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">2</div>
                         <h5 class="card-title">{% trans "Health Assessment" %}</h5>
-                        <p class="card-text">{% trans "Complete comprehensive health assessment with vital signs and laboratory results." %}</p>
+                        <p class="card-text">{% trans "Complete comprehensive health assessment with vital signs and
+                            laboratory results." %}</p>
                     </div>
                 </div>
             </div>
@@ -236,7 +244,8 @@
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">3</div>
                         <h5 class="card-title">{% trans "Get Results" %}</h5>
-                        <p class="card-text">{% trans "Receive AI-powered risk predictions with personalized recommendations and insights." %}</p>
+                        <p class="card-text">{% trans "Receive AI-powered risk predictions with personalized
+                            recommendations and insights." %}</p>
                     </div>
                 </div>
             </div>
@@ -249,7 +258,8 @@
     <div class="container text-center">
         <div class="fade-in">
             <h2 class="display-5 fw-bold mb-4">{% trans "Ready to Assess Your Health?" %}</h2>
-            <p class="lead mb-4">{% trans "Join thousands of users who have taken control of their health with our AI-powered predictions." %}</p>
+            <p class="lead mb-4">{% trans "Join thousands of users who have taken control of their health with our
+                AI-powered predictions." %}</p>
 
             {% if user.is_authenticated %}
             <a href="{% url 'predictor:health_assessment' %}" class="btn btn-warning btn-lg me-3">
