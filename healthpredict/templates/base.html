@@ -1,12 +1,11 @@
 {% load static %}
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% trans "Health Prediction Platform" %}{% endblock %}</title>
+    <title>{% block title %}Health Prediction Platform{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -339,21 +338,21 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                            href="{% url 'predictor:home' %}">{% trans "Home" %}</a>
+                            href="{% url 'predictor:home' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
-                            href="{% url 'predictor:about' %}">{% trans "About" %}</a>
+                            href="{% url 'predictor:about' %}">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}"
-                            href="{% url 'predictor:services' %}">{% trans "Services" %}</a>
+                            href="{% url 'predictor:services' %}">Services</a>
                     </li>
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'health_assessment' %}active{% endif %}"
-                            href="{% url 'predictor:health_assessment' %}">{% trans "Assessment" %}</a>
+                            href="{% url 'predictor:health_assessment' %}">Assessment</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -430,28 +429,28 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'accounts:dashboard' %}">
-                                    <i class="fas fa-tachometer-alt me-2"></i>{% trans "Dashboard" %}
+                                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                                 </a></li>
                             <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
-                                    <i class="fas fa-user me-2"></i>{% trans "Profile" %}
+                                    <i class="fas fa-user me-2"></i>Profile
                                 </a></li>
                             <li><a class="dropdown-item" href="{% url 'predictor:assessment_history' %}">
-                                    <i class="fas fa-history me-2"></i>{% trans "Assessment History" %}
+                                    <i class="fas fa-history me-2"></i>Assessment History
                                 </a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
-                                    <i class="fas fa-sign-out-alt me-2"></i>{% trans "Logout" %}
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
                                 </a></li>
                         </ul>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:login' %}">{% trans "Login" %}</a>
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="{% url 'accounts:register' %}">{% trans "Register" %}</a>
+                        <a class="btn btn-primary ms-2" href="{% url 'accounts:register' %}">Register</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -482,26 +481,26 @@
                 <div class="col-md-6">
                     <h5><i class="fas fa-heartbeat me-2"></i>HealthPredict</h5>
                     <p class="mb-3">Advanced AI-powered health risk assessment platform for predictive healthcare.</p>
-                    <p>&copy; 2024 HealthPredict Platform. {% trans "All rights reserved." %}</p>
+                    <p>&copy; 2024 HealthPredict Platform. All rights reserved.</p>
                 </div>
                 <div class="col-md-3">
-                    <h6>{% trans "Quick Links" %}</h6>
+                    <h6>Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'predictor:home' %}">{% trans "Home" %}</a></li>
-                        <li><a href="{% url 'predictor:about' %}">{% trans "About" %}</a></li>
-                        <li><a href="{% url 'predictor:services' %}">{% trans "Services" %}</a></li>
+                        <li><a href="{% url 'predictor:home' %}">Home</a></li>
+                        <li><a href="{% url 'predictor:about' %}">About</a></li>
+                        <li><a href="{% url 'predictor:services' %}">Services</a></li>
                         {% if user.is_authenticated %}
-                        <li><a href="{% url 'predictor:health_assessment' %}">{% trans "Assessment" %}</a></li>
+                        <li><a href="{% url 'predictor:health_assessment' %}">Assessment</a></li>
                         {% endif %}
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>{% trans "Support" %}</h6>
+                    <h6>Support</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#">{% trans "Help Center" %}</a></li>
-                        <li><a href="#">{% trans "Privacy Policy" %}</a></li>
-                        <li><a href="#">{% trans "Terms of Service" %}</a></li>
-                        <li><a href="#">{% trans "Contact Us" %}</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

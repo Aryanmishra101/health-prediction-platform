@@ -545,7 +545,7 @@
             formData.append('report_file', file);
             formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-            fetch('{% url "predictor:upload_report" %}', {
+            fetch('{% url "predictor:upload_report', {
                 method: 'POST',
                 body: formData,
                 headers: {

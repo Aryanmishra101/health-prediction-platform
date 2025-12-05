@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load i18n %}
 
-{% block title %}{% trans "My Profile" %} - {{ block.super }}{% endblock %}
+{% block title %}My Profile - {{ block.super }}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -76,7 +75,7 @@
             <h2 class="mb-2">{{ user.get_full_name|default:user.username }}</h2>
             <p class="mb-0 opacity-75">
                 <i class="fas fa-id-card me-2"></i>
-                {% trans "Medical ID:" %} {{ patient_profile.medical_id }}
+                Medical ID: {{ patient_profile.medical_id }}
             </p>
         </div>
 
@@ -85,37 +84,37 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4>
                     <i class="fas fa-user-circle me-2 text-primary"></i>
-                    {% trans "Personal Information" %}
+                    Personal Information
                 </h4>
                 <a href="{% url 'accounts:profile_setup' %}" class="btn btn-outline-primary">
                     <i class="fas fa-edit me-2"></i>
-                    {% trans "Edit Profile" %}
+                    Edit Profile
                 </a>
             </div>
 
             <div class="info-row">
-                <span class="info-label">{% trans "Full Name" %}</span>
+                <span class="info-label">Full Name</span>
                 <span class="info-value">{{ user.get_full_name|default:"Not specified" }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Username" %}</span>
+                <span class="info-label">Username</span>
                 <span class="info-value">{{ user.username }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Email" %}</span>
+                <span class="info-label">Email</span>
                 <span class="info-value">{{ user.email|default:"Not specified" }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Date of Birth" %}</span>
+                <span class="info-label">Date of Birth</span>
                 <span class="info-value">{{ patient_profile.date_of_birth|date:"F d, Y"|default:"Not specified"
                     }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Age" %}</span>
-                <span class="info-value">{{ patient_profile.age }} {% trans "years" %}</span>
+                <span class="info-label">Age</span>
+                <span class="info-value">{{ patient_profile.age }} years</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Gender" %}</span>
+                <span class="info-label">Gender</span>
                 <span class="info-value">{{ patient_profile.get_gender_display|title }}</span>
             </div>
         </div>
@@ -124,30 +123,30 @@
         <div class="profile-card fade-in">
             <h4 class="mb-4">
                 <i class="fas fa-heartbeat me-2 text-primary"></i>
-                {% trans "Medical Information" %}
+                Medical Information
             </h4>
 
             <div class="info-row">
-                <span class="info-label">{% trans "Blood Type" %}</span>
+                <span class="info-label">Blood Type</span>
                 <span class="info-value">{{ patient_profile.blood_type|default:"Not specified" }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Height" %}</span>
+                <span class="info-label">Height</span>
                 <span class="info-value">
                     {% if patient_profile.height %}
                     {{ patient_profile.height }} cm
                     {% else %}
-                    {% trans "Not specified" %}
+                    Not specified
                     {% endif %}
                 </span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Weight" %}</span>
+                <span class="info-label">Weight</span>
                 <span class="info-value">
                     {% if patient_profile.weight %}
                     {{ patient_profile.weight }} kg
                     {% else %}
-                    {% trans "Not specified" %}
+                    Not specified
                     {% endif %}
                 </span>
             </div>
@@ -157,23 +156,23 @@
         <div class="profile-card fade-in">
             <h4 class="mb-4">
                 <i class="fas fa-address-card me-2 text-primary"></i>
-                {% trans "Contact Information" %}
+                Contact Information
             </h4>
 
             <div class="info-row">
-                <span class="info-label">{% trans "Phone Number" %}</span>
+                <span class="info-label">Phone Number</span>
                 <span class="info-value">{{ patient_profile.phone_number|default:"Not specified" }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Address" %}</span>
+                <span class="info-label">Address</span>
                 <span class="info-value">{{ patient_profile.address|default:"Not specified" }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Emergency Contact" %}</span>
+                <span class="info-label">Emergency Contact</span>
                 <span class="info-value">{{ patient_profile.emergency_contact|default:"Not specified" }}</span>
             </div>
             <div class="info-row">
-                <span class="info-label">{% trans "Emergency Phone" %}</span>
+                <span class="info-label">Emergency Phone</span>
                 <span class="info-value">{{ patient_profile.emergency_phone|default:"Not specified" }}</span>
             </div>
         </div>
@@ -182,20 +181,20 @@
         <div class="profile-card fade-in">
             <h4 class="mb-4">
                 <i class="fas fa-cog me-2 text-primary"></i>
-                {% trans "Account Actions" %}
+                Account Actions
             </h4>
             <div class="d-grid gap-2">
                 <a href="{% url 'accounts:dashboard' %}" class="btn btn-primary">
                     <i class="fas fa-tachometer-alt me-2"></i>
-                    {% trans "Go to Dashboard" %}
+                    Go to Dashboard
                 </a>
                 <a href="{% url 'predictor:health_assessment' %}" class="btn btn-outline-primary">
                     <i class="fas fa-heartbeat me-2"></i>
-                    {% trans "New Health Assessment" %}
+                    New Health Assessment
                 </a>
                 <a href="{% url 'predictor:assessment_history' %}" class="btn btn-outline-primary">
                     <i class="fas fa-history me-2"></i>
-                    {% trans "View Assessment History" %}
+                    View Assessment History
                 </a>
             </div>
         </div>

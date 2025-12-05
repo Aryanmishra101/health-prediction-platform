@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -13,25 +12,25 @@
                     <span class="text-warning">Powered by AI</span>
                 </h1>
                 <p class="lead mb-4">
-                    {% trans "Advanced machine learning models analyze your health data to predict risks for heart
+                    Advanced machine learning models analyze your health data to predict risks for heart
                     disease, diabetes, cancer, and stroke. Get personalized insights and recommendations for better
-                    health outcomes." %}
+                    health outcomes.
                 </p>
                 <div class="d-flex gap-3 flex-wrap">
                     {% if user.is_authenticated %}
                     <a href="{% url 'predictor:health_assessment' %}" class="btn btn-warning btn-lg pulse">
-                        <i class="fas fa-stethoscope me-2"></i>{% trans "Start Assessment" %}
+                        <i class="fas fa-stethoscope me-2"></i>Start Assessment
                     </a>
                     <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-chart-line me-2"></i>{% trans "View Dashboard" %}
+                        <i class="fas fa-chart-line me-2"></i>View Dashboard
                     </a>
                     {% else %}
 
                     <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg">
-                        <i class="fas fa-user-plus me-2"></i>{% trans "Get Started" %}
+                        <i class="fas fa-user-plus me-2"></i>Get Started
                     </a>
                     <a href="{% url 'predictor:services' %}" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-info-circle me-2"></i>{% trans "Learn More" %}
+                        <i class="fas fa-info-circle me-2"></i>Learn More
                     </a>
                     {% endif %}
                 </div>
@@ -50,8 +49,8 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5 fade-in">
-            <h2 class="display-5 fw-bold mb-3">{% trans "Advanced Health Prediction" %}</h2>
-            <p class="lead text-muted">{% trans "Comprehensive risk assessment using cutting-edge machine learning" %}
+            <h2 class="display-5 fw-bold mb-3">Advanced Health Prediction</h2>
+            <p class="lead text-muted">Comprehensive risk assessment using cutting-edge machine learning
             </p>
         </div>
 
@@ -62,13 +61,13 @@
                         <div class="feature-icon">
                             <i class="fas fa-heart"></i>
                         </div>
-                        <h5 class="card-title">{% trans "Heart Disease" %}</h5>
-                        <p class="card-text">{% trans "Advanced cardiovascular risk assessment using multiple biomarkers
-                            and lifestyle factors." %}</p>
+                        <h5 class="card-title">Heart Disease</h5>
+                        <p class="card-text">Advanced cardiovascular risk assessment using multiple biomarkers
+                            and lifestyle factors.</p>
                         <ul class="list-unstyled text-start">
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Blood pressure analysis" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Cholesterol profiling" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Lifestyle assessment" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Blood pressure analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Cholesterol profiling</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Lifestyle assessment</li>
                         </ul>
                     </div>
                 </div>
@@ -80,13 +79,13 @@
                         <div class="feature-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <h5 class="card-title">{% trans "Diabetes Risk" %}</h5>
-                        <p class="card-text">{% trans "Early detection of diabetes risk through glucose analysis and
-                            metabolic indicators." %}</p>
+                        <h5 class="card-title">Diabetes Risk</h5>
+                        <p class="card-text">Early detection of diabetes risk through glucose analysis and
+                            metabolic indicators.</p>
                         <ul class="list-unstyled text-start">
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Glucose monitoring" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "HbA1c analysis" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Insulin resistance" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Glucose monitoring</li>
+                            <li><i class="fas fa-check text-success me-2"></i>HbA1c analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Insulin resistance</li>
                         </ul>
                     </div>
                 </div>
@@ -98,13 +97,13 @@
                         <div class="feature-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h5 class="card-title">{% trans "Cancer Screening" %}</h5>
-                        <p class="card-text">{% trans "Comprehensive cancer risk evaluation based on genetic and
-                            lifestyle factors." %}</p>
+                        <h5 class="card-title">Cancer Screening</h5>
+                        <p class="card-text">Comprehensive cancer risk evaluation based on genetic and
+                            lifestyle factors.</p>
                         <ul class="list-unstyled text-start">
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Genetic markers" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Environmental factors" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Family history" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Genetic markers</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Environmental factors</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Family history</li>
                         </ul>
                     </div>
                 </div>
@@ -116,13 +115,13 @@
                         <div class="feature-icon">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <h5 class="card-title">{% trans "Stroke Prevention" %}</h5>
-                        <p class="card-text">{% trans "Neurological risk assessment for stroke prevention and early
-                            intervention." %}</p>
+                        <h5 class="card-title">Stroke Prevention</h5>
+                        <p class="card-text">Neurological risk assessment for stroke prevention and early
+                            intervention.</p>
                         <ul class="list-unstyled text-start">
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Neurological markers" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Blood flow analysis" %}</li>
-                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Risk stratification" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Neurological markers</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Blood flow analysis</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Risk stratification</li>
                         </ul>
                     </div>
                 </div>
@@ -135,8 +134,8 @@
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5 fade-in">
-            <h2 class="display-5 fw-bold mb-3">{% trans "Platform Statistics" %}</h2>
-            <p class="lead text-muted">{% trans "Trusted by healthcare professionals and patients worldwide" %}</p>
+            <h2 class="display-5 fw-bold mb-3">Platform Statistics</h2>
+            <p class="lead text-muted">Trusted by healthcare professionals and patients worldwide</p>
         </div>
 
         <div class="row g-4">
@@ -145,7 +144,7 @@
                     <div class="card-body">
                         <div class="display-4 fw-bold text-primary mono-font" id="stat-assessments">{{ total_assessments
                             }}+</div>
-                        <p class="mb-0 text-muted">{% trans "Health Assessments" %}</p>
+                        <p class="mb-0 text-muted">Health Assessments</p>
                     </div>
                 </div>
             </div>
@@ -154,7 +153,7 @@
                     <div class="card-body">
                         <div class="display-4 fw-bold text-success mono-font" id="stat-accuracy">{{ prediction_accuracy
                             }}%</div>
-                        <p class="mb-0 text-muted">{% trans "Prediction Accuracy" %}</p>
+                        <p class="mb-0 text-muted">Prediction Accuracy</p>
                     </div>
                 </div>
             </div>
@@ -162,7 +161,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="display-4 fw-bold text-warning mono-font" id="stat-users">{{ active_users }}+</div>
-                        <p class="mb-0 text-muted">{% trans "Active Users" %}</p>
+                        <p class="mb-0 text-muted">Active Users</p>
                     </div>
                 </div>
             </div>
@@ -170,7 +169,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="display-4 fw-bold text-info">24/7</div>
-                        <p class="mb-0 text-muted">{% trans "Support Available" %}</p>
+                        <p class="mb-0 text-muted">Support Available</p>
                     </div>
                 </div>
             </div>
@@ -213,8 +212,8 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5 fade-in">
-            <h2 class="display-5 fw-bold mb-3">{% trans "How It Works" %}</h2>
-            <p class="lead text-muted">{% trans "Simple steps to get your health risk assessment" %}</p>
+            <h2 class="display-5 fw-bold mb-3">How It Works</h2>
+            <p class="lead text-muted">Simple steps to get your health risk assessment</p>
         </div>
 
         <div class="row g-4">
@@ -222,9 +221,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">1</div>
-                        <h5 class="card-title">{% trans "Create Profile" %}</h5>
-                        <p class="card-text">{% trans "Set up your personal health profile with basic information and
-                            medical history." %}</p>
+                        <h5 class="card-title">Create Profile</h5>
+                        <p class="card-text">Set up your personal health profile with basic information and
+                            medical history.</p>
                     </div>
                 </div>
             </div>
@@ -233,9 +232,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">2</div>
-                        <h5 class="card-title">{% trans "Health Assessment" %}</h5>
-                        <p class="card-text">{% trans "Complete comprehensive health assessment with vital signs and
-                            laboratory results." %}</p>
+                        <h5 class="card-title">Health Assessment</h5>
+                        <p class="card-text">Complete comprehensive health assessment with vital signs and
+                            laboratory results.</p>
                     </div>
                 </div>
             </div>
@@ -244,9 +243,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">3</div>
-                        <h5 class="card-title">{% trans "Get Results" %}</h5>
-                        <p class="card-text">{% trans "Receive AI-powered risk predictions with personalized
-                            recommendations and insights." %}</p>
+                        <h5 class="card-title">Get Results</h5>
+                        <p class="card-text">Receive AI-powered risk predictions with personalized
+                            recommendations and insights.</p>
                     </div>
                 </div>
             </div>
@@ -258,24 +257,24 @@
 <section class="py-5 bg-primary text-white">
     <div class="container text-center">
         <div class="fade-in">
-            <h2 class="display-5 fw-bold mb-4">{% trans "Ready to Assess Your Health?" %}</h2>
-            <p class="lead mb-4">{% trans "Join thousands of users who have taken control of their health with our
-                AI-powered predictions." %}</p>
+            <h2 class="display-5 fw-bold mb-4">Ready to Assess Your Health?</h2>
+            <p class="lead mb-4">Join thousands of users who have taken control of their health with our
+                AI-powered predictions.</p>
 
             {% if user.is_authenticated %}
             <a href="{% url 'predictor:health_assessment' %}" class="btn btn-warning btn-lg me-3">
-                <i class="fas fa-stethoscope me-2"></i>{% trans "Start Health Assessment" %}
+                <i class="fas fa-stethoscope me-2"></i>Start Health Assessment
             </a>
             <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-light btn-lg">
-                <i class="fas fa-chart-line me-2"></i>{% trans "View Dashboard" %}
+                <i class="fas fa-chart-line me-2"></i>View Dashboard
             </a>
             {% else %}
 
             <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg me-3">
-                <i class="fas fa-user-plus me-2"></i>{% trans "Get Started Free" %}
+                <i class="fas fa-user-plus me-2"></i>Get Started Free
             </a>
             <a href="{% url 'predictor:services' %}" class="btn btn-outline-light btn-lg">
-                <i class="fas fa-info-circle me-2"></i>{% trans "Learn More" %}
+                <i class="fas fa-info-circle me-2"></i>Learn More
             </a>
             {% endif %}
         </div>

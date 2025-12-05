@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load i18n %}
 
-{% block title %}{% trans "My Dashboard" %} - {{ block.super }}{% endblock %}
+{% block title %}My Dashboard - {{ block.super }}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -137,17 +136,17 @@
                 <div class="col-md-8">
                     <h1 class="mb-2">
                         <i class="fas fa-user-circle me-2"></i>
-                        {% trans "Welcome back," %} {{ user.get_full_name|default:user.username }}!
+                        Welcome back, {{ user.get_full_name|default:user.username }}!
                     </h1>
                     <p class="mb-0 opacity-75">
                         <i class="fas fa-id-card me-2"></i>
-                        {% trans "Medical ID:" %} {{ patient_profile.medical_id }}
+                        Medical ID: {{ patient_profile.medical_id }}
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
                     <a href="{% url 'predictor:health_assessment' %}" class="quick-action-btn">
                         <i class="fas fa-heartbeat me-2"></i>
-                        {% trans "New Assessment" %}
+                        New Assessment
                     </a>
                 </div>
             </div>
@@ -160,7 +159,7 @@
             <div class="stat-card">
                 <i class="fas fa-clipboard-list fa-2x mb-2"></i>
                 <div class="stat-number">{{ recent_assessments|length }}</div>
-                <div class="stat-label">{% trans "Total Assessments" %}</div>
+                <div class="stat-label">Total Assessments</div>
             </div>
         </div>
         <div class="col-md-4 mb-3">
@@ -173,7 +172,7 @@
                     --
                     {% endif %}
                 </div>
-                <div class="stat-label">{% trans "Latest Heart Risk" %}</div>
+                <div class="stat-label">Latest Heart Risk</div>
             </div>
         </div>
         <div class="col-md-4 mb-3">
@@ -186,7 +185,7 @@
                     --
                     {% endif %}
                 </div>
-                <div class="stat-label">{% trans "Latest Diabetes Risk" %}</div>
+                <div class="stat-label">Latest Diabetes Risk</div>
             </div>
         </div>
     </div>
@@ -197,7 +196,7 @@
             <div class="dashboard-card fade-in">
                 <h3 class="mb-4">
                     <i class="fas fa-history me-2"></i>
-                    {% trans "Recent Assessments" %}
+                    Recent Assessments
                 </h3>
 
                 {% if recent_assessments %}
@@ -220,7 +219,7 @@
                                 {{ assessment.predictionresult.heart_disease_category|title }}
                             </span>
                             {% else %}
-                            <span class="badge bg-secondary">{% trans "Processing" %}</span>
+                            <span class="badge bg-secondary">Processing</span>
                             {% endif %}
                         </div>
                         <div class="col-md-2 text-end">
@@ -228,7 +227,7 @@
                             <a href="{% url 'predictor:assessment_results' assessment.id %}"
                                 class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-eye me-1"></i>
-                                {% trans "View" %}
+                                View
                             </a>
                             {% endif %}
                         </div>
@@ -239,18 +238,18 @@
                 <div class="text-center mt-4">
                     <a href="{% url 'predictor:assessment_history' %}" class="btn btn-outline-primary">
                         <i class="fas fa-list me-2"></i>
-                        {% trans "View All Assessments" %}
+                        View All Assessments
                     </a>
                 </div>
                 {% else %}
                 <div class="text-center py-5">
                     <i class="fas fa-clipboard-list fa-4x text-muted mb-3"></i>
-                    <h5 class="text-muted">{% trans "No assessments yet" %}</h5>
-                    <p class="text-muted">{% trans "Start your first health assessment to track your health risks." %}
+                    <h5 class="text-muted">No assessments yet</h5>
+                    <p class="text-muted">Start your first health assessment to track your health risks.
                     </p>
                     <a href="{% url 'predictor:health_assessment' %}" class="btn btn-primary mt-3">
                         <i class="fas fa-plus-circle me-2"></i>
-                        {% trans "Start Assessment" %}
+                        Start Assessment
                     </a>
                 </div>
                 {% endif %}
@@ -263,27 +262,27 @@
             <div class="dashboard-card fade-in">
                 <h4 class="mb-3">
                     <i class="fas fa-user me-2"></i>
-                    {% trans "Profile Summary" %}
+                    Profile Summary
                 </h4>
                 <div class="mb-3">
-                    <small class="text-muted d-block">{% trans "Age" %}</small>
-                    <strong>{{ patient_profile.age }} {% trans "years" %}</strong>
+                    <small class="text-muted d-block">Age</small>
+                    <strong>{{ patient_profile.age }} years</strong>
                 </div>
                 <div class="mb-3">
-                    <small class="text-muted d-block">{% trans "Gender" %}</small>
+                    <small class="text-muted d-block">Gender</small>
                     <strong>{{ patient_profile.get_gender_display|title }}</strong>
                 </div>
                 <div class="mb-3">
-                    <small class="text-muted d-block">{% trans "Blood Type" %}</small>
+                    <small class="text-muted d-block">Blood Type</small>
                     <strong>{{ patient_profile.blood_type|default:"Not specified" }}</strong>
                 </div>
                 <div class="mb-3">
-                    <small class="text-muted d-block">{% trans "Contact" %}</small>
+                    <small class="text-muted d-block">Contact</small>
                     <strong>{{ patient_profile.phone_number|default:"Not specified" }}</strong>
                 </div>
                 <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary w-100 mt-3">
                     <i class="fas fa-edit me-2"></i>
-                    {% trans "Edit Profile" %}
+                    Edit Profile
                 </a>
             </div>
 
@@ -292,11 +291,11 @@
             <div class="dashboard-card fade-in mt-4">
                 <h4 class="mb-3">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    {% trans "Latest Risk Summary" %}
+                    Latest Risk Summary
                 </h4>
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span>{% trans "Heart Disease" %}</span>
+                        <span>Heart Disease</span>
                         <span class="risk-badge {{ latest_prediction.heart_disease_category }}">
                             {{ latest_prediction.heart_disease_risk|floatformat:0 }}%
                         </span>
@@ -309,7 +308,7 @@
                 </div>
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span>{% trans "Diabetes" %}</span>
+                        <span>Diabetes</span>
                         <span class="risk-badge {{ latest_prediction.diabetes_category }}">
                             {{ latest_prediction.diabetes_risk|floatformat:0 }}%
                         </span>
@@ -322,7 +321,7 @@
                 </div>
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span>{% trans "Cancer" %}</span>
+                        <span>Cancer</span>
                         <span class="risk-badge {{ latest_prediction.cancer_category }}">
                             {{ latest_prediction.cancer_risk|floatformat:0 }}%
                         </span>
@@ -335,7 +334,7 @@
                 </div>
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span>{% trans "Stroke" %}</span>
+                        <span>Stroke</span>
                         <span class="risk-badge {{ latest_prediction.stroke_category }}">
                             {{ latest_prediction.stroke_risk|floatformat:0 }}%
                         </span>
@@ -353,20 +352,20 @@
             <div class="dashboard-card fade-in mt-4">
                 <h4 class="mb-3">
                     <i class="fas fa-bolt me-2"></i>
-                    {% trans "Quick Actions" %}
+                    Quick Actions
                 </h4>
                 <div class="d-grid gap-2">
                     <a href="{% url 'predictor:health_assessment' %}" class="btn btn-primary">
                         <i class="fas fa-heartbeat me-2"></i>
-                        {% trans "New Assessment" %}
+                        New Assessment
                     </a>
                     <a href="{% url 'predictor:assessment_history' %}" class="btn btn-outline-primary">
                         <i class="fas fa-history me-2"></i>
-                        {% trans "View History" %}
+                        View History
                     </a>
                     <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary">
                         <i class="fas fa-user-edit me-2"></i>
-                        {% trans "Update Profile" %}
+                        Update Profile
                     </a>
                 </div>
             </div>

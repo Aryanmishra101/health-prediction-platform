@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -9,10 +8,10 @@
         <div class="row align-items-center hero-content">
             <div class="col-lg-12 text-center fade-in">
                 <h1 class="display-3 fw-bold mb-4">
-                    {% trans "Our Services" %}
+                    Our Services
                 </h1>
                 <p class="lead mb-4">
-                    {% trans "Comprehensive AI-powered health risk assessment for multiple conditions" %}
+                    Comprehensive AI-powered health risk assessment for multiple conditions
                 </p>
             </div>
         </div>
@@ -23,9 +22,9 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5 fade-in">
-            <h2 class="display-5 fw-bold mb-3">{% trans "What We Offer" %}</h2>
+            <h2 class="display-5 fw-bold mb-3">What We Offer</h2>
             <p class="lead text-muted">
-                {% trans "Advanced machine learning models for accurate health risk prediction" %}
+                Advanced machine learning models for accurate health risk prediction
             </p>
         </div>
 
@@ -35,62 +34,60 @@
                 <div class="feature-icon" style="width: 100px; height: 100px; font-size: 3rem;">
                     <i class="fas fa-heart"></i>
                 </div>
-                <h3 class="display-6 fw-bold mb-3">{% trans "Heart Disease Prediction" %}</h3>
+                <h3 class="display-6 fw-bold mb-3">Heart Disease Prediction</h3>
                 <p class="lead mb-3">
-                    {% trans "Advanced cardiovascular risk assessment using multiple biomarkers and lifestyle factors."
-                    %}
+                    Advanced cardiovascular risk assessment using multiple biomarkers and lifestyle factors.
                 </p>
                 <p class="mb-3">
-                    {% trans "Our heart disease prediction model analyzes key indicators including blood pressure,
-                    cholesterol levels, age, smoking status, and family history to provide accurate risk assessments."
-                    %}
+                    Our heart disease prediction model analyzes key indicators including blood pressure,
+                    cholesterol levels, age, smoking status, and family history to provide accurate risk assessments.
                 </p>
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Comprehensive blood pressure analysis" %}
+                        Comprehensive blood pressure analysis
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Cholesterol profiling (HDL, LDL, Triglycerides)" %}
+                        Cholesterol profiling (HDL, LDL, Triglycerides)
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Lifestyle and behavioral risk assessment" %}
+                        Lifestyle and behavioral risk assessment
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Personalized prevention recommendations" %}
+                        Personalized prevention recommendations
                     </li>
                 </ul>
             </div>
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body p-4">
-                        <h5 class="card-title mb-3">{% trans "Key Features" %}</h5>
+                        <h5 class="card-title mb-3">Key Features</h5>
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-heartbeat fa-2x text-danger mb-2"></i>
-                                    <p class="mb-0 small">{% trans "ECG Analysis" %}</p>
+                                    <p class="mb-0 small">ECG Analysis</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Risk Trends" %}</p>
+                                    <p class="mb-0 small">Risk Trends</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-pills fa-2x text-info mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Medication Impact" %}</p>
+                                    <p class="mb-0 small">Medication Impact</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-running fa-2x text-success mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Exercise Plans" %}</p>
+                                    <p class="mb-0 small">Exercise Plans</p>
                                 </div>
                             </div>
                         </div>
@@ -107,60 +104,60 @@
                 <div class="feature-icon" style="width: 100px; height: 100px; font-size: 3rem;">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3 class="display-6 fw-bold mb-3">{% trans "Diabetes Risk Assessment" %}</h3>
+                <h3 class="display-6 fw-bold mb-3">Diabetes Risk Assessment</h3>
                 <p class="lead mb-3">
-                    {% trans "Early detection of diabetes risk through glucose analysis and metabolic indicators." %}
+                    Early detection of diabetes risk through glucose analysis and metabolic indicators.
                 </p>
                 <p class="mb-3">
-                    {% trans "Our diabetes prediction model evaluates fasting glucose, HbA1c levels, insulin resistance
-                    markers, BMI, and family history to identify pre-diabetic conditions and diabetes risk." %}
+                    Our diabetes prediction model evaluates fasting glucose, HbA1c levels, insulin resistance
+                    markers, BMI, and family history to identify pre-diabetic conditions and diabetes risk.
                 </p>
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Fasting glucose monitoring" %}
+                        Fasting glucose monitoring
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "HbA1c trend analysis" %}
+                        HbA1c trend analysis
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Insulin resistance evaluation" %}
+                        Insulin resistance evaluation
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Dietary and lifestyle recommendations" %}
+                        Dietary and lifestyle recommendations
                     </li>
                 </ul>
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="card">
                     <div class="card-body p-4">
-                        <h5 class="card-title mb-3">{% trans "Assessment Includes" %}</h5>
+                        <h5 class="card-title mb-3">Assessment Includes</h5>
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-vial fa-2x text-warning mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Blood Sugar" %}</p>
+                                    <p class="mb-0 small">Blood Sugar</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-weight fa-2x text-primary mb-2"></i>
-                                    <p class="mb-0 small">{% trans "BMI Analysis" %}</p>
+                                    <p class="mb-0 small">BMI Analysis</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-utensils fa-2x text-success mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Diet Planning" %}</p>
+                                    <p class="mb-0 small">Diet Planning</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-dna fa-2x text-info mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Genetic Factors" %}</p>
+                                    <p class="mb-0 small">Genetic Factors</p>
                                 </div>
                             </div>
                         </div>
@@ -177,60 +174,60 @@
                 <div class="feature-icon" style="width: 100px; height: 100px; font-size: 3rem;">
                     <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3 class="display-6 fw-bold mb-3">{% trans "Cancer Risk Analysis" %}</h3>
+                <h3 class="display-6 fw-bold mb-3">Cancer Risk Analysis</h3>
                 <p class="lead mb-3">
-                    {% trans "Comprehensive cancer risk evaluation based on genetic and lifestyle factors." %}
+                    Comprehensive cancer risk evaluation based on genetic and lifestyle factors.
                 </p>
                 <p class="mb-3">
-                    {% trans "Our cancer risk model analyzes genetic markers, environmental exposures, lifestyle
-                    choices, and family history to assess risk for various types of cancer." %}
+                    Our cancer risk model analyzes genetic markers, environmental exposures, lifestyle
+                    choices, and family history to assess risk for various types of cancer.
                 </p>
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Genetic marker analysis" %}
+                        Genetic marker analysis
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Environmental risk assessment" %}
+                        Environmental risk assessment
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Family history evaluation" %}
+                        Family history evaluation
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Screening recommendations" %}
+                        Screening recommendations
                     </li>
                 </ul>
             </div>
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body p-4">
-                        <h5 class="card-title mb-3">{% trans "Risk Factors Analyzed" %}</h5>
+                        <h5 class="card-title mb-3">Risk Factors Analyzed</h5>
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-dna fa-2x text-danger mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Genetics" %}</p>
+                                    <p class="mb-0 small">Genetics</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-smoking fa-2x text-warning mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Lifestyle" %}</p>
+                                    <p class="mb-0 small">Lifestyle</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-industry fa-2x text-secondary mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Environment" %}</p>
+                                    <p class="mb-0 small">Environment</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-users fa-2x text-primary mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Family History" %}</p>
+                                    <p class="mb-0 small">Family History</p>
                                 </div>
                             </div>
                         </div>
@@ -247,60 +244,60 @@
                 <div class="feature-icon" style="width: 100px; height: 100px; font-size: 3rem;">
                     <i class="fas fa-brain"></i>
                 </div>
-                <h3 class="display-6 fw-bold mb-3">{% trans "Stroke Prevention Assessment" %}</h3>
+                <h3 class="display-6 fw-bold mb-3">Stroke Prevention Assessment</h3>
                 <p class="lead mb-3">
-                    {% trans "Neurological risk assessment for stroke prevention and early intervention." %}
+                    Neurological risk assessment for stroke prevention and early intervention.
                 </p>
                 <p class="mb-3">
-                    {% trans "Our stroke prediction model evaluates blood pressure, atrial fibrillation, cholesterol,
-                    diabetes status, and other neurological risk factors to identify stroke risk." %}
+                    Our stroke prediction model evaluates blood pressure, atrial fibrillation, cholesterol,
+                    diabetes status, and other neurological risk factors to identify stroke risk.
                 </p>
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Neurological marker analysis" %}
+                        Neurological marker analysis
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Blood flow assessment" %}
+                        Blood flow assessment
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Risk stratification (CHADS2 score)" %}
+                        Risk stratification (CHADS2 score)
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check-circle text-success me-2"></i>
-                        {% trans "Prevention strategies" %}
+                        Prevention strategies
                     </li>
                 </ul>
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="card">
                     <div class="card-body p-4">
-                        <h5 class="card-title mb-3">{% trans "Prevention Focus" %}</h5>
+                        <h5 class="card-title mb-3">Prevention Focus</h5>
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-brain fa-2x text-purple mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Brain Health" %}</p>
+                                    <p class="mb-0 small">Brain Health</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-heartbeat fa-2x text-danger mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Heart Rhythm" %}</p>
+                                    <p class="mb-0 small">Heart Rhythm</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-tint fa-2x text-info mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Blood Flow" %}</p>
+                                    <p class="mb-0 small">Blood Flow</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="text-center p-3 bg-light rounded">
                                     <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
-                                    <p class="mb-0 small">{% trans "Prevention" %}</p>
+                                    <p class="mb-0 small">Prevention</p>
                                 </div>
                             </div>
                         </div>
@@ -315,8 +312,8 @@
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5 fade-in">
-            <h2 class="display-5 fw-bold mb-3">{% trans "How Our Assessment Works" %}</h2>
-            <p class="lead text-muted">{% trans "Simple, fast, and accurate health risk evaluation" %}</p>
+            <h2 class="display-5 fw-bold mb-3">How Our Assessment Works</h2>
+            <p class="lead text-muted">Simple, fast, and accurate health risk evaluation</p>
         </div>
 
         <div class="row g-4">
@@ -324,9 +321,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">1</div>
-                        <h5 class="card-title">{% trans "Input Data" %}</h5>
+                        <h5 class="card-title">Input Data</h5>
                         <p class="card-text">
-                            {% trans "Provide your health metrics, lab results, and lifestyle information" %}
+                            Provide your health metrics, lab results, and lifestyle information
                         </p>
                     </div>
                 </div>
@@ -336,10 +333,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">2</div>
-                        <h5 class="card-title">{% trans "AI Analysis" %}</h5>
+                        <h5 class="card-title">AI Analysis</h5>
                         <p class="card-text">
-                            {% trans "Our machine learning models analyze your data against millions of medical records"
-                            %}
+                            Our machine learning models analyze your data against millions of medical records
                         </p>
                     </div>
                 </div>
@@ -349,9 +345,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">3</div>
-                        <h5 class="card-title">{% trans "Risk Assessment" %}</h5>
+                        <h5 class="card-title">Risk Assessment</h5>
                         <p class="card-text">
-                            {% trans "Receive detailed risk scores for heart disease, diabetes, cancer, and stroke" %}
+                            Receive detailed risk scores for heart disease, diabetes, cancer, and stroke
                         </p>
                     </div>
                 </div>
@@ -361,9 +357,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="display-1 text-primary mb-3">4</div>
-                        <h5 class="card-title">{% trans "Recommendations" %}</h5>
+                        <h5 class="card-title">Recommendations</h5>
                         <p class="card-text">
-                            {% trans "Get personalized health recommendations and prevention strategies" %}
+                            Get personalized health recommendations and prevention strategies
                         </p>
                     </div>
                 </div>
@@ -376,20 +372,20 @@
 <section class="py-5 bg-primary text-white">
     <div class="container text-center">
         <div class="fade-in">
-            <h2 class="display-5 fw-bold mb-4">{% trans "Ready to Assess Your Health Risks?" %}</h2>
+            <h2 class="display-5 fw-bold mb-4">Ready to Assess Your Health Risks?</h2>
             <p class="lead mb-4">
-                {% trans "Get started with our comprehensive health assessment today" %}
+                Get started with our comprehensive health assessment today
             </p>
             {% if user.is_authenticated %}
             <a href="{% url 'predictor:health_assessment' %}" class="btn btn-warning btn-lg">
-                <i class="fas fa-stethoscope me-2"></i>{% trans "Start Assessment Now" %}
+                <i class="fas fa-stethoscope me-2"></i>Start Assessment Now
             </a>
             {% else %}
             <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg me-3">
-                <i class="fas fa-user-plus me-2"></i>{% trans "Create Free Account" %}
+                <i class="fas fa-user-plus me-2"></i>Create Free Account
             </a>
             <a href="{% url 'predictor:about' %}" class="btn btn-outline-light btn-lg">
-                <i class="fas fa-info-circle me-2"></i>{% trans "Learn More" %}
+                <i class="fas fa-info-circle me-2"></i>Learn More
             </a>
             {% endif %}
         </div>
