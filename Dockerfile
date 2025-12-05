@@ -13,12 +13,14 @@ WORKDIR /app
 # tesseract-ocr: for OCR
 # poppler-utils: for pdf2image
 # libpq-dev, gcc: for psycopg2 (PostgreSQL)
+# gettext: for Django translation compilemessages
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     poppler-utils \
     libpq-dev \
     gcc \
     python3-dev \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Install python dependencies
