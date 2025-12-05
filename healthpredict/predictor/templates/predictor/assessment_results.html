@@ -1,0 +1,423 @@
+{% extends 'base.html' %}
+
+{% block title %}Assessment Results - Health Prediction Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Results Header -->
+            <div class="text-center mb-5 fade-in">
+                <h1 class="display-5 fw-bold mb-3">
+                    <i class="fas fa-chart-line me-3"></i>
+                    Your Health Assessment Results
+                </h1>
+                <p class="lead text-muted">
+                    Comprehensive risk analysis completed on {{ assessment.assessment_date|date:"F d, Y" }}
+                </p>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Important:</strong> These predictions are for informational purposes only. 
+                    Please consult with healthcare professionals for medical advice and diagnosis.
+                </div>
+            </div>
+            
+            <!-- Overall Risk Summary -->
+            <div class="card shadow-lg mb-5 fade-in">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Overall Risk Summary
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <div class="risk-meter risk-{% if overall_risk < 30 %}low{% elif overall_risk < 60 %}moderate{% else %}high{% endif %}" 
+                                 style="width: 150px; height: 150px;">
+                                <div class="text-center">
+                                    <div class="display-6 mono-font">{{ overall_risk|floatformat:1 }}%</div>
+                                    <div class="small">Overall Risk</div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge bg-{% if overall_risk < 30 %}success{% elif overall_risk < 60 %}warning{% else %}danger{% endif %} fs-6">
+                                    {% if overall_risk < 30 %}Low Risk{% elif overall_risk < 60 %}Moderate Risk{% else %}High Risk{% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="text-primary mb-3">Primary Risk Condition: {{ primary_condition }}</h5>
+                            <p class="mb-3">
+                                Based on your assessment, your highest risk area is <strong>{{ primary_condition }}</strong> 
+                                with a risk score of <strong>{{ risk_data.primary_condition.risk|floatformat:1 }}%</strong>.
+                            </p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                {% for condition, data in risk_data.items %}
+                                <span class="badge bg-{% if data.risk < 30 %}success{% elif data.risk < 60 %}warning{% else %}danger{% endif %}">
+                                    {{ condition }}: {{ data.risk|floatformat:1 }}%
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Risk Analysis -->
+            <div class="card shadow-lg mb-5 fade-in">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-microscope me-2"></i>
+                        Detailed Risk Analysis
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        {% for condition, data in risk_data.items %}
+                        <div class="col-md-6">
+                            <div class="card border-{% if data.risk < 30 %}success{% elif data.risk < 60 %}warning{% else %}danger{% endif %}">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary">{{ condition }}</h5>
+                                    <div class="my-3">
+                                        <div class="risk-meter risk-{% if data.risk < 30 %}low{% elif data.risk < 60 %}moderate{% else %}high{% endif %}" 
+                                             style="width: 100px; height: 100px;">
+                                            <div class="text-center">
+                                                <div class="h4 mono-font mb-0">{{ data.risk|floatformat:1 }}%</div>
+                                                <div class="small">Risk</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="badge bg-{% if data.risk < 30 %}success{% elif data.risk < 60 %}warning{% else %}danger{% endif %}">
+                                            {{ data.category|title }} Risk
+                                        </span>
+                                    </div>
+                                    <div class="small text-muted">
+                                        Confidence: {{ data.confidence|floatformat:0 }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Risk Visualization -->
+            <div class="card shadow-lg mb-5 fade-in">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Risk Comparison Chart
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div id="riskChart" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Key Risk Factors -->
+            <div class="card shadow-lg mb-5 fade-in">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-key me-2"></i>
+                        Key Contributing Factors
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if feature_importance %}
+                    <div class="row g-3">
+                        {% for factor, importance in feature_importance.items %}
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                                <span class="fw-semibold">{{ factor|title }}</span>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress" style="width: 100px; height: 8px;">
+                                        <div class="progress-bar bg-primary" 
+                                             style="width: {{ importance }}%"></div>
+                                    </div>
+                                    <span class="ms-2 text-muted small">{{ importance|floatformat:0 }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Feature importance analysis will be available after processing.
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Personalized Recommendations -->
+            <div class="card shadow-lg mb-5 fade-in">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Personalized Recommendations
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if recommendations %}
+                    <div class="accordion" id="recommendationsAccordion">
+                        {% for recommendation in recommendations %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button {% if recommendation.priority == 'high' %}bg-danger text-white{% elif recommendation.priority == 'medium' %}bg-warning{% endif %}" 
+                                        type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#rec{{ forloop.counter }}">
+                                    <span class="badge bg-{% if recommendation.priority == 'high' %}danger{% elif recommendation.priority == 'medium' %}warning{% else %}secondary{% endif %} me-2">
+                                        {{ recommendation.priority|upper }}
+                                    </span>
+                                    <strong>{{ recommendation.title }}</strong>
+                                    <small class="ms-auto">{{ recommendation.category }}</small>
+                                </button>
+                            </h2>
+                            <div id="rec{{ forloop.counter }}" class="accordion-collapse collapse show" 
+                                 data-bs-parent="#recommendationsAccordion">
+                                <div class="accordion-body">
+                                    <p>{{ recommendation.description }}</p>
+                                    <h6 class="text-primary">Recommended Actions:</h6>
+                                    <ul class="mb-0">
+                                        {% for action in recommendation.actions %}
+                                        <li>{{ action }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>Great news!</strong> Based on your assessment, you have a low risk profile. 
+                        Continue maintaining your healthy lifestyle and regular check-ups.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Assessment Details -->
+            <div class="card shadow-lg mb-5 fade-in">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-clipboard-list me-2"></i>
+                        Assessment Details
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6 class="text-primary">Vital Signs</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Blood Pressure:</strong> {{ assessment.systolic_bp }}/{{ assessment.diastolic_bp }} mmHg</li>
+                                <li><strong>Heart Rate:</strong> {{ assessment.heart_rate }} bpm</li>
+                                <li><strong>Temperature:</strong> {{ assessment.temperature }} °C</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-primary">Laboratory Results</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Glucose:</strong> {{ assessment.fasting_glucose }} mg/dL</li>
+                                <li><strong>HbA1c:</strong> {{ assessment.hba1c }}%</li>
+                                <li><strong>Cholesterol:</strong> {{ assessment.total_cholesterol }} mg/dL</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    {% if assessment.symptoms %}
+                    <div class="mt-4">
+                        <h6 class="text-primary">Reported Symptoms</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for symptom in assessment.get_symptoms_list %}
+                            <span class="badge bg-danger">{{ symptom|title }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="text-center fade-in">
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{% url 'predictor:export_results' assessment.id %}" class="btn btn-outline-primary">
+                        <i class="fas fa-download me-2"></i>Download Report
+                    </a>
+                    <a href="{% url 'accounts:dashboard' %}" class="btn btn-primary">
+                        <i class="fas fa-tachometer-alt me-2"></i>View Dashboard
+                    </a>
+                    <a href="{% url 'predictor:health_assessment' %}" class="btn btn-success">
+                        <i class="fas fa-redo me-2"></i>New Assessment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize risk comparison chart
+        initializeRiskChart();
+        
+        // Animate risk meters
+        animateRiskMeters();
+        
+        // Add pulse animation to high-risk items
+        addRiskAnimations();
+    });
+    
+    function initializeRiskChart() {
+        const chartDom = document.getElementById('riskChart');
+        const myChart = echarts.init(chartDom);
+        
+        const conditions = ['Heart Disease', 'Diabetes', 'Cancer', 'Stroke'];
+        const risks = [
+            {{ risk_data.Heart_Disease.risk }},
+            {{ risk_data.Diabetes.risk }},
+            {{ risk_data.Cancer.risk }},
+            {{ risk_data.Stroke.risk }}
+        ];
+        
+        const colors = risks.map(risk => 
+            risk < 30 ? '#10B981' : risk < 60 ? '#F59E0B' : '#EF4444'
+        );
+        
+        const option = {
+            title: {
+                text: 'Health Risk Comparison',
+                left: 'center',
+                textStyle: {
+                    color: '#2563EB',
+                    fontSize: 18,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                formatter: function(params) {
+                    const data = params[0];
+                    const risk = data.value;
+                    const category = risk < 30 ? 'Low' : risk < 60 ? 'Moderate' : 'High';
+                    return `${data.name}<br/>Risk Score: ${risk.toFixed(1)}%<br/>Category: ${category} Risk`;
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: conditions,
+                axisLabel: {
+                    color: '#374151',
+                    fontSize: 12
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Risk Score (%)',
+                max: 100,
+                axisLabel: {
+                    color: '#374151',
+                    fontSize: 12
+                },
+                nameTextStyle: {
+                    color: '#374151',
+                    fontSize: 14
+                }
+            },
+            series: [{
+                data: risks.map((risk, index) => ({
+                    value: risk,
+                    itemStyle: {
+                        color: colors[index]
+                    }
+                })),
+                type: 'bar',
+                barWidth: '60%',
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%',
+                    fontSize: 12,
+                    fontWeight: 'bold',
+                    color: '#374151'
+                },
+                animationDelay: function (idx) {
+                    return idx * 200;
+                }
+            }],
+            animationEasing: 'elasticOut',
+            animationDelayUpdate: function (idx) {
+                return idx * 100;
+            }
+        };
+        
+        myChart.setOption(option);
+        
+        // Make chart responsive
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+    }
+    
+    function animateRiskMeters() {
+        const riskMeters = document.querySelectorAll('.risk-meter');
+        
+        riskMeters.forEach((meter, index) => {
+            setTimeout(() => {
+                anime({
+                    targets: meter,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 800,
+                    easing: 'easeOutElastic(1, .8)',
+                    delay: index * 200
+                });
+            }, 500);
+        });
+    }
+    
+    function addRiskAnimations() {
+        const highRiskElements = document.querySelectorAll('.risk-high');
+        
+        highRiskElements.forEach(element => {
+            element.classList.add('pulse');
+        });
+    }
+    
+    // Download report functionality
+    function downloadReport() {
+        showLoading(document.querySelector('[href*="export"]'));
+        
+        // Simulate download process
+        setTimeout(() => {
+            hideLoading(document.querySelector('[href*="export"]'), 
+                '<i class="fas fa-download me-2"></i>Download Report');
+        }, 2000);
+    }
+    
+    // Add click handler for download button
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadBtn = document.querySelector('[href*="export"]');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                downloadReport();
+                
+                // Actually trigger download after animation
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 2000);
+            });
+        }
+    });
+</script>
+{% endblock %}

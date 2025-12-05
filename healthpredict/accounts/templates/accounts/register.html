@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Health Prediction Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-plus me-2"></i>
+                        Create Account
+                    </h3>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Personal Information -->
+                        <div class="mb-3">
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label">
+                                First Name <span class="text-danger">*</span>
+                            </label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="text-danger small">{{ form.first_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.last_name.id_for_label }}" class="form-label">
+                                Last Name <span class="text-danger">*</span>
+                            </label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="text-danger small">{{ form.last_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">
+                                Email Address <span class="text-danger">*</span>
+                            </label>
+                            {{ form.email }}
+                            <div class="form-text">We'll use this for account verification and important notifications.</div>
+                            {% if form.email.errors %}
+                                <div class="text-danger small">{{ form.email.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">
+                                Username <span class="text-danger">*</span>
+                            </label>
+                            {{ form.username }}
+                            <div class="form-text">Choose a unique username for your account.</div>
+                            {% if form.username.errors %}
+                                <div class="text-danger small">{{ form.username.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.password1.id_for_label }}" class="form-label">
+                                Password <span class="text-danger">*</span>
+                            </label>
+                            {{ form.password1 }}
+                            <div class="form-text">
+                                <ul class="small mb-0">
+                                    <li>At least 8 characters long</li>
+                                    <li>Contains both letters and numbers</li>
+                                    <li>Not similar to your personal information</li>
+                                    <li>Not a commonly used password</li>
+                                </ul>
+                            </div>
+                            {% if form.password1.errors %}
+                                <div class="text-danger small">{{ form.password1.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.password2.id_for_label }}" class="form-label">
+                                Confirm Password <span class="text-danger">*</span>
+                            </label>
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                                <div class="text-danger small">{{ form.password2.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Consent Checkboxes -->
+                        <div class="mb-3">
+                            <div class="form-check">
+                                {{ form.agree_to_terms }}
+                                <label class="form-check-label" for="{{ form.agree_to_terms.id_for_label }}">
+                                    I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a> 
+                                    and <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+                                </label>
+                            </div>
+                            {% if form.agree_to_terms.errors %}
+                                <div class="text-danger small">{{ form.agree_to_terms.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form.medical_consent }}
+                                <label class="form-check-label" for="{{ form.medical_consent.id_for_label }}">
+                                    I consent to the use of my health data for medical prediction purposes 
+                                    and understand that my data will be handled according to the privacy policy.
+                                </label>
+                            </div>
+                            {% if form.medical_consent.errors %}
+                                <div class="text-danger small">{{ form.medical_consent.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg" id="registerBtn">
+                                <i class="fas fa-user-plus me-2"></i>Create Account
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="card-footer text-center">
+                    <p class="mb-0">
+                        Already have an account? 
+                        <a href="{% url 'accounts:login' %}" class="text-primary">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms of Service Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Terms of Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>1. Acceptance of Terms</h6>
+                <p>By using the Health Prediction Platform, you agree to these terms of service.</p>
+                
+                <h6>2. Medical Disclaimer</h6>
+                <p>This platform provides predictive analytics for informational purposes only and should not replace professional medical advice.</p>
+                
+                <h6>3. Data Usage</h6>
+                <p>Your health data is used solely for generating risk predictions and improving our algorithms.</p>
+                
+                <h6>4. Privacy</h6>
+                <p>We are committed to protecting your personal and health information according to our privacy policy.</p>
+                
+                <h6>5. Limitations</h6>
+                <p>The predictions provided are based on statistical models and may not be accurate for all individuals.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div class="modal fade" id="privacyModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Privacy Policy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>1. Information Collection</h6>
+                <p>We collect personal information, health data, and usage analytics to provide our services.</p>
+                
+                <h6>2. Data Security</h6>
+                <p>All health data is encrypted and stored securely using industry-standard security measures.</p>
+                
+                <h6>3. Data Usage</h6>
+                <p>Your data is used only for generating health predictions and improving our medical algorithms.</p>
+                
+                <h6>4. Data Sharing</h6>
+                <p>We do not share your personal health information with third parties without your explicit consent.</p>
+                
+                <h6>5. Your Rights</h6>
+                <p>You have the right to access, modify, or delete your personal information at any time.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const submitBtn = document.getElementById('registerBtn');
+        
+        // Real-time password strength indicator
+        const password1Input = document.getElementById('{{ form.password1.id_for_label }}');
+        const password2Input = document.getElementById('{{ form.password2.id_for_label }}');
+        
+        password1Input.addEventListener('input', checkPasswordStrength);
+        password2Input.addEventListener('input', checkPasswordMatch);
+        
+        function checkPasswordStrength() {
+            const password = password1Input.value;
+            const strength = calculatePasswordStrength(password);
+            updatePasswordStrengthIndicator(strength);
+        }
+        
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            
+            // Length
+            if (password.length >= 8) score += 1;
+            if (password.length >= 12) score += 1;
+            
+            // Character types
+            if (/[a-z]/.test(password)) score += 1;
+            if (/[A-Z]/.test(password)) score += 1;
+            if (/[0-9]/.test(password)) score += 1;
+            if (/[^A-Za-z0-9]/.test(password)) score += 1;
+            
+            return score;
+        }
+        
+        function updatePasswordStrengthIndicator(strength) {
+            // Remove existing indicator
+            const existingIndicator = document.querySelector('.password-strength');
+            if (existingIndicator) existingIndicator.remove();
+            
+            if (strength === 0) return;
+            
+            const colors = ['danger', 'warning', 'info', 'success'];
+            const labels = ['Very Weak', 'Weak', 'Medium', 'Strong', 'Very Strong'];
+            const color = colors[Math.min(strength - 1, colors.length - 1)];
+            const label = labels[Math.min(strength - 1, labels.length - 1)];
+            
+            const indicator = document.createElement('div');
+            indicator.className = 'password-strength mt-2';
+            indicator.innerHTML = `
+                <div class="progress" style="height: 5px;">
+                    <div class="progress-bar bg-${color}" style="width: ${(strength / 6) * 100}%"></div>
+                </div>
+                <small class="text-${color}">Password strength: ${label}</small>
+            `;
+            
+            password1Input.parentElement.appendChild(indicator);
+        }
+        
+        function checkPasswordMatch() {
+            const password1 = password1Input.value;
+            const password2 = password2Input.value;
+            
+            // Remove existing match indicator
+            const existingMatch = document.querySelector('.password-match');
+            if (existingMatch) existingMatch.remove();
+            
+            if (password2 && password1 !== password2) {
+                const mismatch = document.createElement('div');
+                mismatch.className = 'password-match text-danger small mt-1';
+                mismatch.textContent = 'Passwords do not match';
+                password2Input.parentElement.appendChild(mismatch);
+                password2Input.classList.add('is-invalid');
+            } else if (password2 && password1 === password2) {
+                const match = document.createElement('div');
+                match.className = 'password-match text-success small mt-1';
+                match.textContent = 'Passwords match';
+                password2Input.parentElement.appendChild(match);
+                password2Input.classList.remove('is-invalid');
+                password2Input.classList.add('is-valid');
+            }
+        }
+        
+        // Email availability check
+        const emailInput = document.getElementById('{{ form.email.id_for_label }}');
+        let emailCheckTimeout;
+        
+        emailInput.addEventListener('input', function() {
+            clearTimeout(emailCheckTimeout);
+            emailCheckTimeout = setTimeout(() => {
+                checkEmailAvailability(this.value);
+            }, 500);
+        });
+        
+        function checkEmailAvailability(email) {
+            if (!email || !isValidEmail(email)) return;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const isAvailable = Math.random() > 0.3; // 70% chance of being available
+                showEmailAvailabilityStatus(isAvailable);
+            }, 500);
+        }
+        
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        function showEmailAvailabilityStatus(isAvailable) {
+            // Remove existing status
+            const existingStatus = document.querySelector('.email-status');
+            if (existingStatus) existingStatus.remove();
+            
+            const status = document.createElement('div');
+            status.className = 'email-status small mt-1';
+            
+            if (isAvailable) {
+                status.className += ' text-success';
+                status.innerHTML = '<i class="fas fa-check-circle me-1"></i>Email is available';
+                emailInput.classList.remove('is-invalid');
+                emailInput.classList.add('is-valid');
+            } else {
+                status.className += ' text-danger';
+                status.innerHTML = '<i class="fas fa-times-circle me-1"></i>Email is already registered';
+                emailInput.classList.remove('is-valid');
+                emailInput.classList.add('is-invalid');
+            }
+            
+            emailInput.parentElement.appendChild(status);
+        }
+        
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.checked && field.type === 'checkbox') {
+                    if (!field.checked) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                } else if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                
+                // Show error message
+                const alert = document.createElement('div');
+                alert.className = 'alert alert-danger alert-dismissible fade show';
+                alert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle me-2"></i>Please fill in all required fields.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                form.insertBefore(alert, form.firstChild);
+            } else {
+                showLoading(submitBtn);
+            }
+        });
+    });
+</script>
+{% endblock %}

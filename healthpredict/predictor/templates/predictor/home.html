@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center hero-content">
+            <div class="col-lg-6 fade-in">
+                <h1 class="display-4 fw-bold mb-4">
+                    Predictive Healthcare
+                    <span class="text-warning">Powered by AI</span>
+                </h1>
+                <p class="lead mb-4">
+                    {% trans "Advanced machine learning models analyze your health data to predict risks for heart
+                    disease, diabetes, cancer, and stroke. Get personalized insights and recommendations for better
+                    health outcomes." %}
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'predictor:health_assessment' %}" class="btn btn-warning btn-lg pulse">
+                        <i class="fas fa-stethoscope me-2"></i>{% trans "Start Assessment" %}
+                    </a>
+                    <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-chart-line me-2"></i>{% trans "View Dashboard" %}
+                    </a>
+                    {% else %}
+
+                    <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>{% trans "Get Started" %}
+                    </a>
+                    <a href="{% url 'predictor:services' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-info-circle me-2"></i>{% trans "Learn More" %}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <div class="text-center">
+                    <img src="{% static 'hero-medical.png' %}" alt="Medical Technology"
+                        class="img-fluid rounded-4 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2 class="display-5 fw-bold mb-3">{% trans "Advanced Health Prediction" %}</h2>
+            <p class="lead text-muted">{% trans "Comprehensive risk assessment using cutting-edge machine learning" %}
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h5 class="card-title">{% trans "Heart Disease" %}</h5>
+                        <p class="card-text">{% trans "Advanced cardiovascular risk assessment using multiple biomarkers
+                            and lifestyle factors." %}</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Blood pressure analysis" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Cholesterol profiling" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Lifestyle assessment" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5 class="card-title">{% trans "Diabetes Risk" %}</h5>
+                        <p class="card-text">{% trans "Early detection of diabetes risk through glucose analysis and
+                            metabolic indicators." %}</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Glucose monitoring" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "HbA1c analysis" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Insulin resistance" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5 class="card-title">{% trans "Cancer Screening" %}</h5>
+                        <p class="card-text">{% trans "Comprehensive cancer risk evaluation based on genetic and
+                            lifestyle factors." %}</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Genetic markers" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Environmental factors" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Family history" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h5 class="card-title">{% trans "Stroke Prevention" %}</h5>
+                        <p class="card-text">{% trans "Neurological risk assessment for stroke prevention and early
+                            intervention." %}</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Neurological markers" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Blood flow analysis" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Risk stratification" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2 class="display-5 fw-bold mb-3">{% trans "Platform Statistics" %}</h2>
+            <p class="lead text-muted">{% trans "Trusted by healthcare professionals and patients worldwide" %}</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3 text-center fade-in">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 fw-bold text-primary mono-font" id="stat-assessments">{{ total_assessments
+                            }}+</div>
+                        <p class="mb-0 text-muted">{% trans "Health Assessments" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center fade-in">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 fw-bold text-success mono-font" id="stat-accuracy">{{ prediction_accuracy
+                            }}%</div>
+                        <p class="mb-0 text-muted">{% trans "Prediction Accuracy" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center fade-in">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 fw-bold text-warning mono-font" id="stat-users">{{ active_users }}+</div>
+                        <p class="mb-0 text-muted">{% trans "Active Users" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center fade-in">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 fw-bold text-info">24/7</div>
+                        <p class="mb-0 text-muted">{% trans "Support Available" %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Poll for live stats every 5 seconds
+        setInterval(fetchLiveStats, 5000);
+
+        function fetchLiveStats() {
+            fetch('/api/stats/')
+                .then(response => response.json())
+                .then(data => {
+                    updateStat('stat-assessments', data.total_assessments + '+');
+                    updateStat('stat-users', data.active_users + '+');
+                    // Accuracy usually doesn't change often, but we can update it too
+                    updateStat('stat-accuracy', data.prediction_accuracy + '%');
+                })
+                .catch(error => console.error('Error fetching stats:', error));
+        }
+
+        function updateStat(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            if (element && element.innerText !== newValue) {
+                // Simple fade out/in effect
+                element.style.opacity = 0;
+                setTimeout(() => {
+                    element.innerText = newValue;
+                    element.style.opacity = 1;
+                }, 200);
+            }
+        }
+    });
+</script>
+
+<!-- How It Works Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2 class="display-5 fw-bold mb-3">{% trans "How It Works" %}</h2>
+            <p class="lead text-muted">{% trans "Simple steps to get your health risk assessment" %}</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 text-center fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="display-1 text-primary mb-3">1</div>
+                        <h5 class="card-title">{% trans "Create Profile" %}</h5>
+                        <p class="card-text">{% trans "Set up your personal health profile with basic information and
+                            medical history." %}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-center fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="display-1 text-primary mb-3">2</div>
+                        <h5 class="card-title">{% trans "Health Assessment" %}</h5>
+                        <p class="card-text">{% trans "Complete comprehensive health assessment with vital signs and
+                            laboratory results." %}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-center fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="display-1 text-primary mb-3">3</div>
+                        <h5 class="card-title">{% trans "Get Results" %}</h5>
+                        <p class="card-text">{% trans "Receive AI-powered risk predictions with personalized
+                            recommendations and insights." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2 class="display-5 fw-bold mb-4">{% trans "Ready to Assess Your Health?" %}</h2>
+            <p class="lead mb-4">{% trans "Join thousands of users who have taken control of their health with our
+                AI-powered predictions." %}</p>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'predictor:health_assessment' %}" class="btn btn-warning btn-lg me-3">
+                <i class="fas fa-stethoscope me-2"></i>{% trans "Start Health Assessment" %}
+            </a>
+            <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-chart-line me-2"></i>{% trans "View Dashboard" %}
+            </a>
+            {% else %}
+
+            <a href="{% url 'accounts:register' %}" class="btn btn-warning btn-lg me-3">
+                <i class="fas fa-user-plus me-2"></i>{% trans "Get Started Free" %}
+            </a>
+            <a href="{% url 'predictor:services' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-info-circle me-2"></i>{% trans "Learn More" %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize page animations
+    document.addEventListener('DOMContentLoaded', function () {
+        // Animate statistics counters
+        const counters = document.querySelectorAll('.mono-font');
+        counters.forEach(counter => {
+            const target = parseInt(counter.textContent.replace(/\D/g, ''));
+            const increment = target / 50;
+            let current = 0;
+
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    counter.textContent = Math.ceil(current).toLocaleString() +
+                        (counter.textContent.includes('%') ? '%' :
+                            counter.textContent.includes('+') ? '+' :
+                                counter.textContent.includes('/') ? '/7' : '+');
+                    setTimeout(updateCounter, 50);
+                } else {
+                    counter.textContent = counter.textContent;
+                }
+            };
+
+            // Start animation when element is visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+
+            observer.observe(counter.parentElement);
+        });
+
+        // Feature card hover effects
+        const featureCards = document.querySelectorAll('.col-md-3 .card');
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                anime({
+                    targets: this.querySelector('.feature-icon'),
+                    scale: 1.1,
+                    rotate: '5deg',
+                    duration: 300,
+                    easing: 'easeOutQuad'
+                });
+            });
+
+            card.addEventListener('mouseleave', function () {
+                anime({
+                    targets: this.querySelector('.feature-icon'),
+                    scale: 1,
+                    rotate: '0deg',
+                    duration: 300,
+                    easing: 'easeOutQuad'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

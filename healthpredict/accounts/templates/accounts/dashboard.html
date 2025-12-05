@@ -1,0 +1,402 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "My Dashboard" %} - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-card {
+        background: linear-gradient(135deg, var(--clinical-white) 0%, var(--light-gray) 100%);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, var(--medical-blue) 0%, var(--soft-teal) 100%);
+        color: white;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: scale(1.05);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 10px 0;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .assessment-item {
+        background: white;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        border-left: 4px solid var(--medical-blue);
+        transition: all 0.3s ease;
+    }
+
+    .assessment-item:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateX(4px);
+    }
+
+    .risk-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .risk-badge.low {
+        background: var(--low-risk);
+        color: white;
+    }
+
+    .risk-badge.moderate {
+        background: var(--moderate-risk);
+        color: white;
+    }
+
+    .risk-badge.high,
+    .risk-badge.very_high {
+        background: var(--high-risk);
+        color: white;
+    }
+
+    .profile-header {
+        background: linear-gradient(135deg, var(--medical-blue) 0%, var(--soft-teal) 100%);
+        color: white;
+        border-radius: 16px;
+        padding: 32px;
+        margin-bottom: 32px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .profile-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .quick-action-btn {
+        background: white;
+        color: var(--medical-blue);
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        color: var(--soft-teal);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Profile Header -->
+    <div class="profile-header fade-in">
+        <div class="profile-content">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-2">
+                        <i class="fas fa-user-circle me-2"></i>
+                        {% trans "Welcome back," %} {{ user.get_full_name|default:user.username }}!
+                    </h1>
+                    <p class="mb-0 opacity-75">
+                        <i class="fas fa-id-card me-2"></i>
+                        {% trans "Medical ID:" %} {{ patient_profile.medical_id }}
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="{% url 'predictor:health_assessment' %}" class="quick-action-btn">
+                        <i class="fas fa-heartbeat me-2"></i>
+                        {% trans "New Assessment" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4 fade-in">
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <i class="fas fa-clipboard-list fa-2x mb-2"></i>
+                <div class="stat-number">{{ recent_assessments|length }}</div>
+                <div class="stat-label">{% trans "Total Assessments" %}</div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--low-risk) 0%, #059669 100%);">
+                <i class="fas fa-chart-line fa-2x mb-2"></i>
+                <div class="stat-number">
+                    {% if latest_prediction %}
+                    {{ latest_prediction.heart_disease_risk|floatformat:0 }}%
+                    {% else %}
+                    --
+                    {% endif %}
+                </div>
+                <div class="stat-label">{% trans "Latest Heart Risk" %}</div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--moderate-risk) 0%, #D97706 100%);">
+                <i class="fas fa-heartbeat fa-2x mb-2"></i>
+                <div class="stat-number">
+                    {% if latest_prediction %}
+                    {{ latest_prediction.diabetes_risk|floatformat:0 }}%
+                    {% else %}
+                    --
+                    {% endif %}
+                </div>
+                <div class="stat-label">{% trans "Latest Diabetes Risk" %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Assessments -->
+        <div class="col-lg-8 mb-4">
+            <div class="dashboard-card fade-in">
+                <h3 class="mb-4">
+                    <i class="fas fa-history me-2"></i>
+                    {% trans "Recent Assessments" %}
+                </h3>
+
+                {% if recent_assessments %}
+                {% for assessment in recent_assessments %}
+                <div class="assessment-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h6 class="mb-1">
+                                <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                                {{ assessment.assessment_date|date:"F d, Y" }}
+                            </h6>
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                {{ assessment.assessment_date|date:"g:i A" }}
+                            </small>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if assessment.predictionresult %}
+                            <span class="risk-badge {{ assessment.predictionresult.heart_disease_category }}">
+                                {{ assessment.predictionresult.heart_disease_category|title }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-secondary">{% trans "Processing" %}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-end">
+                            {% if assessment.predictionresult %}
+                            <a href="{% url 'predictor:assessment_results' assessment.id %}"
+                                class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye me-1"></i>
+                                {% trans "View" %}
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'predictor:assessment_history' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-list me-2"></i>
+                        {% trans "View All Assessments" %}
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-clipboard-list fa-4x text-muted mb-3"></i>
+                    <h5 class="text-muted">{% trans "No assessments yet" %}</h5>
+                    <p class="text-muted">{% trans "Start your first health assessment to track your health risks." %}
+                    </p>
+                    <a href="{% url 'predictor:health_assessment' %}" class="btn btn-primary mt-3">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        {% trans "Start Assessment" %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Profile Summary & Quick Actions -->
+        <div class="col-lg-4">
+            <!-- Profile Summary -->
+            <div class="dashboard-card fade-in">
+                <h4 class="mb-3">
+                    <i class="fas fa-user me-2"></i>
+                    {% trans "Profile Summary" %}
+                </h4>
+                <div class="mb-3">
+                    <small class="text-muted d-block">{% trans "Age" %}</small>
+                    <strong>{{ patient_profile.age }} {% trans "years" %}</strong>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted d-block">{% trans "Gender" %}</small>
+                    <strong>{{ patient_profile.get_gender_display|title }}</strong>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted d-block">{% trans "Blood Type" %}</small>
+                    <strong>{{ patient_profile.blood_type|default:"Not specified" }}</strong>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted d-block">{% trans "Contact" %}</small>
+                    <strong>{{ patient_profile.phone_number|default:"Not specified" }}</strong>
+                </div>
+                <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary w-100 mt-3">
+                    <i class="fas fa-edit me-2"></i>
+                    {% trans "Edit Profile" %}
+                </a>
+            </div>
+
+            <!-- Latest Risk Summary -->
+            {% if latest_prediction %}
+            <div class="dashboard-card fade-in mt-4">
+                <h4 class="mb-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    {% trans "Latest Risk Summary" %}
+                </h4>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{% trans "Heart Disease" %}</span>
+                        <span class="risk-badge {{ latest_prediction.heart_disease_category }}">
+                            {{ latest_prediction.heart_disease_risk|floatformat:0 }}%
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ latest_prediction.heart_disease_risk }}%; background: var(--medical-blue);">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{% trans "Diabetes" %}</span>
+                        <span class="risk-badge {{ latest_prediction.diabetes_category }}">
+                            {{ latest_prediction.diabetes_risk|floatformat:0 }}%
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ latest_prediction.diabetes_risk }}%; background: var(--moderate-risk);">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{% trans "Cancer" %}</span>
+                        <span class="risk-badge {{ latest_prediction.cancer_category }}">
+                            {{ latest_prediction.cancer_risk|floatformat:0 }}%
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ latest_prediction.cancer_risk }}%; background: var(--high-risk);">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{% trans "Stroke" %}</span>
+                        <span class="risk-badge {{ latest_prediction.stroke_category }}">
+                            {{ latest_prediction.stroke_risk|floatformat:0 }}%
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ latest_prediction.stroke_risk }}%; background: var(--soft-teal);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Quick Actions -->
+            <div class="dashboard-card fade-in mt-4">
+                <h4 class="mb-3">
+                    <i class="fas fa-bolt me-2"></i>
+                    {% trans "Quick Actions" %}
+                </h4>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'predictor:health_assessment' %}" class="btn btn-primary">
+                        <i class="fas fa-heartbeat me-2"></i>
+                        {% trans "New Assessment" %}
+                    </a>
+                    <a href="{% url 'predictor:assessment_history' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-history me-2"></i>
+                        {% trans "View History" %}
+                    </a>
+                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {% trans "Update Profile" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animate statistics on load
+    document.addEventListener('DOMContentLoaded', function () {
+        const statNumbers = document.querySelectorAll('.stat-number');
+
+        statNumbers.forEach(stat => {
+            const finalValue = stat.textContent.replace('%', '').replace('--', '0');
+            if (finalValue && !isNaN(finalValue)) {
+                let currentValue = 0;
+                const increment = Math.ceil(parseFloat(finalValue) / 30);
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= parseFloat(finalValue)) {
+                        currentValue = parseFloat(finalValue);
+                        clearInterval(timer);
+                    }
+                    stat.textContent = stat.textContent.includes('%') ?
+                        currentValue + '%' : currentValue;
+                }, 30);
+            }
+        });
+    });
+</script>
+{% endblock %}

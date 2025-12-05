@@ -1,0 +1,944 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-05 14:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/templates/accounts/dashboard.html:5
+#: templates/accounts/dashboard.html:5
+msgid "My Dashboard"
+msgstr "My Dashboard"
+
+#: accounts/templates/accounts/dashboard.html:140
+#: templates/accounts/dashboard.html:140
+msgid "Welcome back,"
+msgstr "Welcome back,"
+
+#: accounts/templates/accounts/dashboard.html:144
+#: accounts/templates/accounts/profile.html:79
+#: templates/accounts/dashboard.html:144 templates/accounts/profile.html:79
+msgid "Medical ID:"
+msgstr "Medical ID:"
+
+#: accounts/templates/accounts/dashboard.html:150
+#: accounts/templates/accounts/dashboard.html:361
+#: templates/accounts/dashboard.html:150 templates/accounts/dashboard.html:361
+msgid "New Assessment"
+msgstr "New Assessment"
+
+#: accounts/templates/accounts/dashboard.html:163
+#: templates/accounts/dashboard.html:163
+msgid "Total Assessments"
+msgstr "Total Assessments"
+
+#: accounts/templates/accounts/dashboard.html:176
+#: templates/accounts/dashboard.html:176
+msgid "Latest Heart Risk"
+msgstr "Latest Heart Risk"
+
+#: accounts/templates/accounts/dashboard.html:189
+#: templates/accounts/dashboard.html:189
+msgid "Latest Diabetes Risk"
+msgstr "Latest Diabetes Risk"
+
+#: accounts/templates/accounts/dashboard.html:200
+#: templates/accounts/dashboard.html:200
+msgid "Recent Assessments"
+msgstr "Recent Assessments"
+
+#: accounts/templates/accounts/dashboard.html:223
+#: templates/accounts/dashboard.html:223
+msgid "Processing"
+msgstr "Processing"
+
+#: accounts/templates/accounts/dashboard.html:231
+#: templates/accounts/dashboard.html:231
+msgid "View"
+msgstr "View"
+
+#: accounts/templates/accounts/dashboard.html:242
+#: templates/accounts/dashboard.html:242
+msgid "View All Assessments"
+msgstr "View All Assessments"
+
+#: accounts/templates/accounts/dashboard.html:248
+#: templates/accounts/dashboard.html:248
+msgid "No assessments yet"
+msgstr "No assessments yet"
+
+#: accounts/templates/accounts/dashboard.html:249
+#: templates/accounts/dashboard.html:249
+msgid "Start your first health assessment to track your health risks."
+msgstr "Start your first health assessment to track your health risks."
+
+#: accounts/templates/accounts/dashboard.html:253
+#: predictor/templates/predictor/about.html:222
+#: predictor/templates/predictor/home.html:23
+#: templates/accounts/dashboard.html:253 templates/predictor/about.html:222
+#: templates/predictor/home.html:23
+msgid "Start Assessment"
+msgstr "Start Assessment"
+
+#: accounts/templates/accounts/dashboard.html:266
+#: templates/accounts/dashboard.html:266
+msgid "Profile Summary"
+msgstr "Profile Summary"
+
+#: accounts/templates/accounts/dashboard.html:269
+#: accounts/templates/accounts/profile.html:114
+#: templates/accounts/dashboard.html:269 templates/accounts/profile.html:114
+msgid "Age"
+msgstr "Age"
+
+#: accounts/templates/accounts/dashboard.html:270
+#: accounts/templates/accounts/profile.html:115
+#: templates/accounts/dashboard.html:270 templates/accounts/profile.html:115
+msgid "years"
+msgstr "years"
+
+#: accounts/templates/accounts/dashboard.html:273
+#: accounts/templates/accounts/profile.html:118
+#: templates/accounts/dashboard.html:273 templates/accounts/profile.html:118
+msgid "Gender"
+msgstr "Gender"
+
+#: accounts/templates/accounts/dashboard.html:277
+#: accounts/templates/accounts/profile.html:131
+#: templates/accounts/dashboard.html:277 templates/accounts/profile.html:131
+msgid "Blood Type"
+msgstr "Blood Type"
+
+#: accounts/templates/accounts/dashboard.html:281
+#: templates/accounts/dashboard.html:281
+msgid "Contact"
+msgstr "Contact"
+
+#: accounts/templates/accounts/dashboard.html:286
+#: accounts/templates/accounts/profile.html:92
+#: templates/accounts/dashboard.html:286 templates/accounts/profile.html:92
+msgid "Edit Profile"
+msgstr "Edit Profile"
+
+#: accounts/templates/accounts/dashboard.html:295
+#: templates/accounts/dashboard.html:295
+msgid "Latest Risk Summary"
+msgstr "Latest Risk Summary"
+
+#: accounts/templates/accounts/dashboard.html:299
+#: predictor/templates/predictor/home.html:65
+#: templates/accounts/dashboard.html:299 templates/predictor/home.html:65
+msgid "Heart Disease"
+msgstr "Heart Disease"
+
+#: accounts/templates/accounts/dashboard.html:312
+#: templates/accounts/dashboard.html:312
+msgid "Diabetes"
+msgstr "Diabetes"
+
+#: accounts/templates/accounts/dashboard.html:325
+#: templates/accounts/dashboard.html:325
+msgid "Cancer"
+msgstr "Cancer"
+
+#: accounts/templates/accounts/dashboard.html:338
+#: templates/accounts/dashboard.html:338
+msgid "Stroke"
+msgstr "Stroke"
+
+#: accounts/templates/accounts/dashboard.html:356
+#: templates/accounts/dashboard.html:356
+msgid "Quick Actions"
+msgstr "Quick Actions"
+
+#: accounts/templates/accounts/dashboard.html:365
+#: templates/accounts/dashboard.html:365
+msgid "View History"
+msgstr "View History"
+
+#: accounts/templates/accounts/dashboard.html:369
+#: templates/accounts/dashboard.html:369
+msgid "Update Profile"
+msgstr "Update Profile"
+
+#: accounts/templates/accounts/profile.html:5
+#: templates/accounts/profile.html:5
+msgid "My Profile"
+msgstr "My Profile"
+
+#: accounts/templates/accounts/profile.html:88
+#: templates/accounts/profile.html:88
+msgid "Personal Information"
+msgstr "Personal Information"
+
+#: accounts/templates/accounts/profile.html:97
+#: templates/accounts/profile.html:97
+msgid "Full Name"
+msgstr "Full Name"
+
+#: accounts/templates/accounts/profile.html:101
+#: templates/accounts/profile.html:101
+msgid "Username"
+msgstr "Username"
+
+#: accounts/templates/accounts/profile.html:105
+#: templates/accounts/profile.html:105
+msgid "Email"
+msgstr "Email"
+
+#: accounts/templates/accounts/profile.html:109
+#: templates/accounts/profile.html:109
+msgid "Date of Birth"
+msgstr "Date of Birth"
+
+#: accounts/templates/accounts/profile.html:127
+#: templates/accounts/profile.html:127
+msgid "Medical Information"
+msgstr "Medical Information"
+
+#: accounts/templates/accounts/profile.html:135
+#: templates/accounts/profile.html:135
+msgid "Height"
+msgstr "Height"
+
+#: accounts/templates/accounts/profile.html:140
+#: accounts/templates/accounts/profile.html:150
+#: templates/accounts/profile.html:140 templates/accounts/profile.html:150
+msgid "Not specified"
+msgstr "Not specified"
+
+#: accounts/templates/accounts/profile.html:145
+#: templates/accounts/profile.html:145
+msgid "Weight"
+msgstr "Weight"
+
+#: accounts/templates/accounts/profile.html:160
+#: templates/accounts/profile.html:160
+msgid "Contact Information"
+msgstr "Contact Information"
+
+#: accounts/templates/accounts/profile.html:164
+#: templates/accounts/profile.html:164
+msgid "Phone Number"
+msgstr "Phone Number"
+
+#: accounts/templates/accounts/profile.html:168
+#: templates/accounts/profile.html:168
+msgid "Address"
+msgstr "Address"
+
+#: accounts/templates/accounts/profile.html:172
+#: templates/accounts/profile.html:172
+msgid "Emergency Contact"
+msgstr "Emergency Contact"
+
+#: accounts/templates/accounts/profile.html:176
+#: templates/accounts/profile.html:176
+msgid "Emergency Phone"
+msgstr "Emergency Phone"
+
+#: accounts/templates/accounts/profile.html:185
+#: templates/accounts/profile.html:185
+msgid "Account Actions"
+msgstr "Account Actions"
+
+#: accounts/templates/accounts/profile.html:190
+#: templates/accounts/profile.html:190
+msgid "Go to Dashboard"
+msgstr "Go to Dashboard"
+
+#: accounts/templates/accounts/profile.html:194
+#: templates/accounts/profile.html:194
+msgid "New Health Assessment"
+msgstr "New Health Assessment"
+
+#: accounts/templates/accounts/profile.html:198
+#: templates/accounts/profile.html:198
+msgid "View Assessment History"
+msgstr "View Assessment History"
+
+#: healthpredict/settings.py:148
+msgid "English"
+msgstr "English"
+
+#: healthpredict/settings.py:149
+msgid "Hindi"
+msgstr "Hindi"
+
+#: healthpredict/settings.py:150
+msgid "Japanese"
+msgstr "Japanese"
+
+#: healthpredict/settings.py:151
+msgid "Simplified Chinese"
+msgstr "Simplified Chinese"
+
+#: healthpredict/settings.py:152
+msgid "Urdu"
+msgstr "Urdu"
+
+#: predictor/templates/predictor/about.html:12
+#: templates/predictor/about.html:12
+msgid "About HealthPredict"
+msgstr "About HealthPredict"
+
+#: predictor/templates/predictor/about.html:15
+#: templates/predictor/about.html:15
+msgid "Revolutionizing healthcare through AI-powered predictive analytics"
+msgstr "Revolutionizing healthcare through AI-powered predictive analytics"
+
+#: predictor/templates/predictor/about.html:27
+#: templates/predictor/about.html:27
+msgid "Our Mission"
+msgstr "Our Mission"
+
+#: predictor/templates/predictor/about.html:51
+#: templates/predictor/about.html:51
+msgid "Users Served"
+msgstr "Users Served"
+
+#: predictor/templates/predictor/about.html:58
+#: templates/predictor/about.html:58
+msgid "Accuracy Rate"
+msgstr "Accuracy Rate"
+
+#: predictor/templates/predictor/about.html:65
+#: templates/predictor/about.html:65
+msgid "Disease Models"
+msgstr "Disease Models"
+
+#: predictor/templates/predictor/about.html:72
+#: templates/predictor/about.html:72
+msgid "Availability"
+msgstr "Availability"
+
+#: predictor/templates/predictor/about.html:86
+#: templates/predictor/about.html:86
+msgid "Our Technology"
+msgstr "Our Technology"
+
+#: predictor/templates/predictor/about.html:98
+#: templates/predictor/about.html:98
+msgid "Deep Learning Models"
+msgstr "Deep Learning Models"
+
+#: predictor/templates/predictor/about.html:113
+#: templates/predictor/about.html:113
+msgid "Privacy & Security"
+msgstr "Privacy & Security"
+
+#: predictor/templates/predictor/about.html:128
+#: templates/predictor/about.html:128
+msgid "Continuous Improvement"
+msgstr "Continuous Improvement"
+
+#: predictor/templates/predictor/about.html:144
+#: templates/predictor/about.html:144
+msgid "Our Values"
+msgstr "Our Values"
+
+#: predictor/templates/predictor/about.html:145
+#: templates/predictor/about.html:145
+msgid "The principles that guide our work"
+msgstr "The principles that guide our work"
+
+#: predictor/templates/predictor/about.html:154
+#: templates/predictor/about.html:154
+msgid "Accuracy First"
+msgstr "Accuracy First"
+
+#: predictor/templates/predictor/about.html:169
+#: templates/predictor/about.html:169
+msgid "Patient Privacy"
+msgstr "Patient Privacy"
+
+#: predictor/templates/predictor/about.html:184
+#: templates/predictor/about.html:184
+msgid "Accessibility"
+msgstr "Accessibility"
+
+#: predictor/templates/predictor/about.html:199
+#: templates/predictor/about.html:199
+msgid "Innovation"
+msgstr "Innovation"
+
+#: predictor/templates/predictor/about.html:216
+#: templates/predictor/about.html:216
+msgid "Ready to Get Started?"
+msgstr "Ready to Get Started?"
+
+#: predictor/templates/predictor/about.html:218
+#: templates/predictor/about.html:218
+msgid ""
+"Join thousands of users who have taken control of their health with "
+"HealthPredict."
+msgstr ""
+"Join thousands of users who have taken control of their health with "
+"HealthPredict."
+
+#: predictor/templates/predictor/about.html:226
+#: templates/predictor/about.html:226
+msgid "Sign Up Free"
+msgstr "Sign Up Free"
+
+#: predictor/templates/predictor/about.html:229
+#: predictor/templates/predictor/home.html:34
+#: predictor/templates/predictor/home.html:278
+#: predictor/templates/predictor/services.html:392
+#: templates/predictor/about.html:229 templates/predictor/home.html:34
+#: templates/predictor/home.html:278 templates/predictor/services.html:392
+msgid "Learn More"
+msgstr "Learn More"
+
+#: predictor/templates/predictor/home.html:26
+#: predictor/templates/predictor/home.html:270
+#: templates/predictor/home.html:26 templates/predictor/home.html:270
+msgid "View Dashboard"
+msgstr "View Dashboard"
+
+#: predictor/templates/predictor/home.html:31 templates/predictor/home.html:31
+msgid "Get Started"
+msgstr "Get Started"
+
+#: predictor/templates/predictor/home.html:53 templates/predictor/home.html:53
+msgid "Advanced Health Prediction"
+msgstr "Advanced Health Prediction"
+
+#: predictor/templates/predictor/home.html:54 templates/predictor/home.html:54
+msgid "Comprehensive risk assessment using cutting-edge machine learning"
+msgstr "Comprehensive risk assessment using cutting-edge machine learning"
+
+#: predictor/templates/predictor/home.html:69 templates/predictor/home.html:69
+msgid "Blood pressure analysis"
+msgstr "Blood pressure analysis"
+
+#: predictor/templates/predictor/home.html:70 templates/predictor/home.html:70
+msgid "Cholesterol profiling"
+msgstr "Cholesterol profiling"
+
+#: predictor/templates/predictor/home.html:71 templates/predictor/home.html:71
+msgid "Lifestyle assessment"
+msgstr "Lifestyle assessment"
+
+#: predictor/templates/predictor/home.html:83 templates/predictor/home.html:83
+msgid "Diabetes Risk"
+msgstr "Diabetes Risk"
+
+#: predictor/templates/predictor/home.html:87 templates/predictor/home.html:87
+msgid "Glucose monitoring"
+msgstr "Glucose monitoring"
+
+#: predictor/templates/predictor/home.html:88 templates/predictor/home.html:88
+msgid "HbA1c analysis"
+msgstr "HbA1c analysis"
+
+#: predictor/templates/predictor/home.html:89 templates/predictor/home.html:89
+msgid "Insulin resistance"
+msgstr "Insulin resistance"
+
+#: predictor/templates/predictor/home.html:101
+#: templates/predictor/home.html:101
+msgid "Cancer Screening"
+msgstr "Cancer Screening"
+
+#: predictor/templates/predictor/home.html:105
+#: templates/predictor/home.html:105
+msgid "Genetic markers"
+msgstr "Genetic markers"
+
+#: predictor/templates/predictor/home.html:106
+#: templates/predictor/home.html:106
+msgid "Environmental factors"
+msgstr "Environmental factors"
+
+#: predictor/templates/predictor/home.html:107
+#: templates/predictor/home.html:107
+msgid "Family history"
+msgstr "Family history"
+
+#: predictor/templates/predictor/home.html:119
+#: templates/predictor/home.html:119
+msgid "Stroke Prevention"
+msgstr "Stroke Prevention"
+
+#: predictor/templates/predictor/home.html:123
+#: templates/predictor/home.html:123
+msgid "Neurological markers"
+msgstr "Neurological markers"
+
+#: predictor/templates/predictor/home.html:124
+#: templates/predictor/home.html:124
+msgid "Blood flow analysis"
+msgstr "Blood flow analysis"
+
+#: predictor/templates/predictor/home.html:125
+#: templates/predictor/home.html:125
+msgid "Risk stratification"
+msgstr "Risk stratification"
+
+#: predictor/templates/predictor/home.html:138
+#: templates/predictor/home.html:138
+msgid "Platform Statistics"
+msgstr "Platform Statistics"
+
+#: predictor/templates/predictor/home.html:139
+#: templates/predictor/home.html:139
+msgid "Trusted by healthcare professionals and patients worldwide"
+msgstr "Trusted by healthcare professionals and patients worldwide"
+
+#: predictor/templates/predictor/home.html:148
+#: templates/predictor/home.html:148
+msgid "Health Assessments"
+msgstr "Health Assessments"
+
+#: predictor/templates/predictor/home.html:157
+#: templates/predictor/home.html:157
+msgid "Prediction Accuracy"
+msgstr "Prediction Accuracy"
+
+#: predictor/templates/predictor/home.html:165
+#: templates/predictor/home.html:165
+msgid "Active Users"
+msgstr "Active Users"
+
+#: predictor/templates/predictor/home.html:173
+#: templates/predictor/home.html:173
+msgid "Support Available"
+msgstr "Support Available"
+
+#: predictor/templates/predictor/home.html:216
+#: templates/predictor/home.html:216
+msgid "How It Works"
+msgstr "How It Works"
+
+#: predictor/templates/predictor/home.html:217
+#: templates/predictor/home.html:217
+msgid "Simple steps to get your health risk assessment"
+msgstr "Simple steps to get your health risk assessment"
+
+#: predictor/templates/predictor/home.html:225
+#: templates/predictor/home.html:225
+msgid "Create Profile"
+msgstr "Create Profile"
+
+#: predictor/templates/predictor/home.html:236
+#: templates/predictor/home.html:236
+msgid "Health Assessment"
+msgstr "Health Assessment"
+
+#: predictor/templates/predictor/home.html:247
+#: templates/predictor/home.html:247
+msgid "Get Results"
+msgstr "Get Results"
+
+#: predictor/templates/predictor/home.html:261
+#: templates/predictor/home.html:261
+msgid "Ready to Assess Your Health?"
+msgstr "Ready to Assess Your Health?"
+
+#: predictor/templates/predictor/home.html:267
+#: templates/predictor/home.html:267
+msgid "Start Health Assessment"
+msgstr "Start Health Assessment"
+
+#: predictor/templates/predictor/home.html:275
+#: templates/predictor/home.html:275
+msgid "Get Started Free"
+msgstr "Get Started Free"
+
+#: predictor/templates/predictor/services.html:12
+#: templates/predictor/services.html:12
+msgid "Our Services"
+msgstr "Our Services"
+
+#: predictor/templates/predictor/services.html:15
+#: templates/predictor/services.html:15
+msgid ""
+"Comprehensive AI-powered health risk assessment for multiple conditions"
+msgstr ""
+"Comprehensive AI-powered health risk assessment for multiple conditions"
+
+#: predictor/templates/predictor/services.html:26
+#: templates/predictor/services.html:26
+msgid "What We Offer"
+msgstr "What We Offer"
+
+#: predictor/templates/predictor/services.html:28
+#: templates/predictor/services.html:28
+msgid "Advanced machine learning models for accurate health risk prediction"
+msgstr "Advanced machine learning models for accurate health risk prediction"
+
+#: predictor/templates/predictor/services.html:38
+#: templates/predictor/services.html:38
+msgid "Heart Disease Prediction"
+msgstr "Heart Disease Prediction"
+
+#: predictor/templates/predictor/services.html:51
+#: templates/predictor/services.html:51
+msgid "Comprehensive blood pressure analysis"
+msgstr "Comprehensive blood pressure analysis"
+
+#: predictor/templates/predictor/services.html:55
+#: templates/predictor/services.html:55
+msgid "Cholesterol profiling (HDL, LDL, Triglycerides)"
+msgstr "Cholesterol profiling (HDL, LDL, Triglycerides)"
+
+#: predictor/templates/predictor/services.html:59
+#: templates/predictor/services.html:59
+msgid "Lifestyle and behavioral risk assessment"
+msgstr "Lifestyle and behavioral risk assessment"
+
+#: predictor/templates/predictor/services.html:63
+#: templates/predictor/services.html:63
+msgid "Personalized prevention recommendations"
+msgstr "Personalized prevention recommendations"
+
+#: predictor/templates/predictor/services.html:70
+#: templates/predictor/services.html:70
+msgid "Key Features"
+msgstr "Key Features"
+
+#: predictor/templates/predictor/services.html:75
+#: templates/predictor/services.html:75
+msgid "ECG Analysis"
+msgstr "ECG Analysis"
+
+#: predictor/templates/predictor/services.html:81
+#: templates/predictor/services.html:81
+msgid "Risk Trends"
+msgstr "Risk Trends"
+
+#: predictor/templates/predictor/services.html:87
+#: templates/predictor/services.html:87
+msgid "Medication Impact"
+msgstr "Medication Impact"
+
+#: predictor/templates/predictor/services.html:93
+#: templates/predictor/services.html:93
+msgid "Exercise Plans"
+msgstr "Exercise Plans"
+
+#: predictor/templates/predictor/services.html:110
+#: templates/predictor/services.html:110
+msgid "Diabetes Risk Assessment"
+msgstr "Diabetes Risk Assessment"
+
+#: predictor/templates/predictor/services.html:112
+#: templates/predictor/services.html:112
+msgid ""
+"Early detection of diabetes risk through glucose analysis and metabolic "
+"indicators."
+msgstr ""
+"Early detection of diabetes risk through glucose analysis and metabolic "
+"indicators."
+
+#: predictor/templates/predictor/services.html:121
+#: templates/predictor/services.html:121
+msgid "Fasting glucose monitoring"
+msgstr "Fasting glucose monitoring"
+
+#: predictor/templates/predictor/services.html:125
+#: templates/predictor/services.html:125
+msgid "HbA1c trend analysis"
+msgstr "HbA1c trend analysis"
+
+#: predictor/templates/predictor/services.html:129
+#: templates/predictor/services.html:129
+msgid "Insulin resistance evaluation"
+msgstr "Insulin resistance evaluation"
+
+#: predictor/templates/predictor/services.html:133
+#: templates/predictor/services.html:133
+msgid "Dietary and lifestyle recommendations"
+msgstr "Dietary and lifestyle recommendations"
+
+#: predictor/templates/predictor/services.html:140
+#: templates/predictor/services.html:140
+msgid "Assessment Includes"
+msgstr "Assessment Includes"
+
+#: predictor/templates/predictor/services.html:145
+#: templates/predictor/services.html:145
+msgid "Blood Sugar"
+msgstr "Blood Sugar"
+
+#: predictor/templates/predictor/services.html:151
+#: templates/predictor/services.html:151
+msgid "BMI Analysis"
+msgstr "BMI Analysis"
+
+#: predictor/templates/predictor/services.html:157
+#: templates/predictor/services.html:157
+msgid "Diet Planning"
+msgstr "Diet Planning"
+
+#: predictor/templates/predictor/services.html:163
+#: templates/predictor/services.html:163
+msgid "Genetic Factors"
+msgstr "Genetic Factors"
+
+#: predictor/templates/predictor/services.html:180
+#: templates/predictor/services.html:180
+msgid "Cancer Risk Analysis"
+msgstr "Cancer Risk Analysis"
+
+#: predictor/templates/predictor/services.html:182
+#: templates/predictor/services.html:182
+msgid ""
+"Comprehensive cancer risk evaluation based on genetic and lifestyle factors."
+msgstr ""
+"Comprehensive cancer risk evaluation based on genetic and lifestyle factors."
+
+#: predictor/templates/predictor/services.html:191
+#: templates/predictor/services.html:191
+msgid "Genetic marker analysis"
+msgstr "Genetic marker analysis"
+
+#: predictor/templates/predictor/services.html:195
+#: templates/predictor/services.html:195
+msgid "Environmental risk assessment"
+msgstr "Environmental risk assessment"
+
+#: predictor/templates/predictor/services.html:199
+#: templates/predictor/services.html:199
+msgid "Family history evaluation"
+msgstr "Family history evaluation"
+
+#: predictor/templates/predictor/services.html:203
+#: templates/predictor/services.html:203
+msgid "Screening recommendations"
+msgstr "Screening recommendations"
+
+#: predictor/templates/predictor/services.html:210
+#: templates/predictor/services.html:210
+msgid "Risk Factors Analyzed"
+msgstr "Risk Factors Analyzed"
+
+#: predictor/templates/predictor/services.html:215
+#: templates/predictor/services.html:215
+msgid "Genetics"
+msgstr "Genetics"
+
+#: predictor/templates/predictor/services.html:221
+#: templates/predictor/services.html:221
+msgid "Lifestyle"
+msgstr "Lifestyle"
+
+#: predictor/templates/predictor/services.html:227
+#: templates/predictor/services.html:227
+msgid "Environment"
+msgstr "Environment"
+
+#: predictor/templates/predictor/services.html:233
+#: templates/predictor/services.html:233
+msgid "Family History"
+msgstr "Family History"
+
+#: predictor/templates/predictor/services.html:250
+#: templates/predictor/services.html:250
+msgid "Stroke Prevention Assessment"
+msgstr "Stroke Prevention Assessment"
+
+#: predictor/templates/predictor/services.html:252
+#: templates/predictor/services.html:252
+msgid ""
+"Neurological risk assessment for stroke prevention and early intervention."
+msgstr ""
+"Neurological risk assessment for stroke prevention and early intervention."
+
+#: predictor/templates/predictor/services.html:261
+#: templates/predictor/services.html:261
+msgid "Neurological marker analysis"
+msgstr "Neurological marker analysis"
+
+#: predictor/templates/predictor/services.html:265
+#: templates/predictor/services.html:265
+msgid "Blood flow assessment"
+msgstr "Blood flow assessment"
+
+#: predictor/templates/predictor/services.html:269
+#: templates/predictor/services.html:269
+msgid "Risk stratification (CHADS2 score)"
+msgstr "Risk stratification (CHADS2 score)"
+
+#: predictor/templates/predictor/services.html:273
+#: templates/predictor/services.html:273
+msgid "Prevention strategies"
+msgstr "Prevention strategies"
+
+#: predictor/templates/predictor/services.html:280
+#: templates/predictor/services.html:280
+msgid "Prevention Focus"
+msgstr "Prevention Focus"
+
+#: predictor/templates/predictor/services.html:285
+#: templates/predictor/services.html:285
+msgid "Brain Health"
+msgstr "Brain Health"
+
+#: predictor/templates/predictor/services.html:291
+#: templates/predictor/services.html:291
+msgid "Heart Rhythm"
+msgstr "Heart Rhythm"
+
+#: predictor/templates/predictor/services.html:297
+#: templates/predictor/services.html:297
+msgid "Blood Flow"
+msgstr "Blood Flow"
+
+#: predictor/templates/predictor/services.html:303
+#: templates/predictor/services.html:303
+msgid "Prevention"
+msgstr "Prevention"
+
+#: predictor/templates/predictor/services.html:318
+#: templates/predictor/services.html:318
+msgid "How Our Assessment Works"
+msgstr "How Our Assessment Works"
+
+#: predictor/templates/predictor/services.html:319
+#: templates/predictor/services.html:319
+msgid "Simple, fast, and accurate health risk evaluation"
+msgstr "Simple, fast, and accurate health risk evaluation"
+
+#: predictor/templates/predictor/services.html:327
+#: templates/predictor/services.html:327
+msgid "Input Data"
+msgstr "Input Data"
+
+#: predictor/templates/predictor/services.html:329
+#: templates/predictor/services.html:329
+msgid "Provide your health metrics, lab results, and lifestyle information"
+msgstr "Provide your health metrics, lab results, and lifestyle information"
+
+#: predictor/templates/predictor/services.html:339
+#: templates/predictor/services.html:339
+msgid "AI Analysis"
+msgstr "AI Analysis"
+
+#: predictor/templates/predictor/services.html:352
+#: templates/predictor/services.html:352
+msgid "Risk Assessment"
+msgstr "Risk Assessment"
+
+#: predictor/templates/predictor/services.html:354
+#: templates/predictor/services.html:354
+msgid ""
+"Receive detailed risk scores for heart disease, diabetes, cancer, and stroke"
+msgstr ""
+"Receive detailed risk scores for heart disease, diabetes, cancer, and stroke"
+
+#: predictor/templates/predictor/services.html:364
+#: templates/predictor/services.html:364
+msgid "Recommendations"
+msgstr "Recommendations"
+
+#: predictor/templates/predictor/services.html:366
+#: templates/predictor/services.html:366
+msgid "Get personalized health recommendations and prevention strategies"
+msgstr "Get personalized health recommendations and prevention strategies"
+
+#: predictor/templates/predictor/services.html:379
+#: templates/predictor/services.html:379
+msgid "Ready to Assess Your Health Risks?"
+msgstr "Ready to Assess Your Health Risks?"
+
+#: predictor/templates/predictor/services.html:381
+#: templates/predictor/services.html:381
+msgid "Get started with our comprehensive health assessment today"
+msgstr "Get started with our comprehensive health assessment today"
+
+#: predictor/templates/predictor/services.html:385
+#: templates/predictor/services.html:385
+msgid "Start Assessment Now"
+msgstr "Start Assessment Now"
+
+#: predictor/templates/predictor/services.html:389
+#: templates/predictor/services.html:389
+msgid "Create Free Account"
+msgstr "Create Free Account"
+
+#: templates/base.html:9
+msgid "Health Prediction Platform"
+msgstr "Health Prediction Platform"
+
+#: templates/base.html:342 templates/base.html:490
+msgid "Home"
+msgstr "Home"
+
+#: templates/base.html:346 templates/base.html:491
+msgid "About"
+msgstr "About"
+
+#: templates/base.html:350 templates/base.html:492
+msgid "Services"
+msgstr "Services"
+
+#: templates/base.html:356 templates/base.html:494
+msgid "Assessment"
+msgstr "Assessment"
+
+#: templates/base.html:433
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/base.html:436
+msgid "Profile"
+msgstr "Profile"
+
+#: templates/base.html:439
+msgid "Assessment History"
+msgstr "Assessment History"
+
+#: templates/base.html:445
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/base.html:451
+msgid "Login"
+msgstr "Login"
+
+#: templates/base.html:454
+msgid "Register"
+msgstr "Register"
+
+#: templates/base.html:485
+msgid "All rights reserved."
+msgstr "All rights reserved."
+
+#: templates/base.html:488
+msgid "Quick Links"
+msgstr "Quick Links"
+
+#: templates/base.html:499
+msgid "Support"
+msgstr "Support"
+
+#: templates/base.html:501
+msgid "Help Center"
+msgstr "Help Center"
+
+#: templates/base.html:502
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+#: templates/base.html:503
+msgid "Terms of Service"
+msgstr "Terms of Service"
+
+#: templates/base.html:504
+msgid "Contact Us"
+msgstr "Contact Us"
