@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'drf_spectacular',
-    'debug_toolbar',
     
     # Local apps
     'predictor',
@@ -70,7 +69,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'healthpredict.urls'
@@ -316,15 +314,3 @@ if SENTRY_DSN and not DEBUG:
         send_default_pii=False,  # Don't send personally identifiable information
         environment='production' if not DEBUG else 'development',
     )
-
-# Django Debug Toolbar
-INTERNAL_IPS = [
-    '127.0.0.1',
-    'localhost',
-]
-
-# Debug Toolbar Configuration
-if DEBUG:
-    DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
-    }

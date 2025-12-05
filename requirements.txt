@@ -15,5 +15,5 @@ gunicorn==21.2.0
 requests==2.31.0
 djangorestframework==3.16.1
 drf-spectacular==0.27.0
-django-debug-toolbar==4.2.0
 supabase>=2.0.0
+
