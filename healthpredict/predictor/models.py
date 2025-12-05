@@ -42,9 +42,9 @@ class PatientProfile(models.Model):
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date_of_birth = models.DateField(null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=False)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
-    phone = models.CharField(max_length=20, blank=True)
+    phone = models.CharField(max_length=20, blank=False)
     emergency_contact = models.CharField(max_length=100, blank=True)
     medical_id = models.CharField(max_length=20, unique=True, blank=True)
     
@@ -66,9 +66,9 @@ class PatientProfile(models.Model):
         ('AB-', 'AB Negative (AB-)'),
     ]
 
-    height = models.FloatField(null=True, blank=True, validators=[MinValueValidator(100), MaxValueValidator(250)])
-    weight = models.FloatField(null=True, blank=True, validators=[MinValueValidator(30), MaxValueValidator(300)])
-    blood_type = models.CharField(max_length=5, choices=BLOOD_TYPE_CHOICES, blank=True)
+    height = models.FloatField(null=True, blank=False, validators=[MinValueValidator(100), MaxValueValidator(250)])
+    weight = models.FloatField(null=True, blank=False, validators=[MinValueValidator(30), MaxValueValidator(300)])
+    blood_type = models.CharField(max_length=5, choices=BLOOD_TYPE_CHOICES, blank=False)
     allergies = models.TextField(blank=True)
     current_medications = models.TextField(blank=True)
     
