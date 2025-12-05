@@ -29,6 +29,9 @@ RUN pip install --upgrade pip && \
 # Copy project
 COPY . /app/
 
+# Compile translation messages
+RUN python healthpredict/manage.py compilemessages
+
 # Collect static files
 # We set a dummy secret key for build step if needed, but usually handled by env vars
 RUN python healthpredict/manage.py collectstatic --noinput
