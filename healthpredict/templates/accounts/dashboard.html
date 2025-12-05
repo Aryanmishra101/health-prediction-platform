@@ -83,13 +83,15 @@
     }
 
     .profile-header {
-        background: linear-gradient(135deg, var(--medical-blue) 0%, var(--soft-teal) 100%);
-        color: white;
+        background: white;
+        color: var(--charcoal);
         border-radius: 16px;
         padding: 32px;
         margin-bottom: 32px;
         position: relative;
         overflow: hidden;
+        border: 2px solid rgba(37, 99, 235, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     .profile-header::before {
@@ -99,8 +101,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-        opacity: 0.3;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(8, 145, 178, 0.03) 100%);
+        opacity: 1;
     }
 
     .profile-content {
@@ -109,20 +111,20 @@
     }
 
     .quick-action-btn {
-        background: white;
-        color: var(--medical-blue);
+        background: linear-gradient(135deg, var(--medical-blue) 0%, var(--soft-teal) 100%);
+        color: white;
         border: none;
         padding: 12px 24px;
         border-radius: 8px;
         font-weight: 600;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
 
     .quick-action-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        color: var(--soft-teal);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        color: white;
     }
 </style>
 {% endblock %}
@@ -138,7 +140,7 @@
                         <i class="fas fa-user-circle me-2"></i>
                         Welcome back, {{ user.get_full_name|default:user.username }}!
                     </h1>
-                    <p class="mb-0 opacity-75">
+                    <p class="mb-0 text-muted">
                         <i class="fas fa-id-card me-2"></i>
                         Medical ID: {{ patient_profile.medical_id }}
                     </p>
